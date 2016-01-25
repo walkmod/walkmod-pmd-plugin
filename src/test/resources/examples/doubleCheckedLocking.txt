@@ -1,0 +1,9 @@
+public class Foo {
+    Object baz;
+    Object bar() {
+        if (baz == null) { // baz may be non-null yet not fully created
+           baz = new Object();
+        }
+        return baz;
+    }
+}
