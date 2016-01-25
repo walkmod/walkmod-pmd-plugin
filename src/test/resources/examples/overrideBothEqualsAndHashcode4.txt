@@ -1,0 +1,8 @@
+public class Foo {      // perfect, neither method provided
+    public boolean hello(Object other) {
+      return false;
+    }
+    public int goodbye() {
+      return 0;
+    }
+}

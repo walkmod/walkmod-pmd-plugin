@@ -1,0 +1,5 @@
+public class Baz {      // poor, missing an equals() method
+    public int hashCode() {
+      // return some hash value
+    }
+}

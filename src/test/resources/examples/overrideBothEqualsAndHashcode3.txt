@@ -1,0 +1,8 @@
+public class Foo {      // perfect, both methods provided
+    public boolean equals(Object other) {
+      // do some comparison
+    }
+    public int hashCode() {
+      // return some hash value
+    }
+}

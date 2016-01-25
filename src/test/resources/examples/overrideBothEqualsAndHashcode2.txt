@@ -1,0 +1,5 @@
+public class Bar {      // poor, missing a hashcode() method
+    public boolean equals(Object o) {
+      // do some comparison
+    }
+}
