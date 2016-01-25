@@ -1,0 +1,5 @@
+public class Foo {
+    void bar() {
+        for (;true;) System.out.println("hello"); // No Init or Update part, may as well be: while (true)
+    }
+}
