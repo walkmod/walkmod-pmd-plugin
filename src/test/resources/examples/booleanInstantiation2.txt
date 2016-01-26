@@ -1,0 +1,7 @@
+public class Foo{
+
+ public void bar(){
+    
+   Boolean bar = new Boolean("true");       // unnecessary creation, just reference Boolean.TRUE;
+ }
+}
