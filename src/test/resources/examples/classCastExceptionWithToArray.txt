@@ -1,0 +1,15 @@
+import java.util.Collection;
+import java.util.ArrayList;
+
+public class Foo {
+
+  public void bar(){
+    Collection c = new ArrayList();
+    Integer obj = new Integer(1);
+    c.add(obj);
+    
+    // this would trigger the rule (and throw a ClassCastException if executed)
+    Integer[] a = (Integer [])c.toArray();
+  }
+
+}
