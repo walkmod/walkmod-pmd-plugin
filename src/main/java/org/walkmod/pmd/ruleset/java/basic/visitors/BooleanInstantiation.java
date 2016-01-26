@@ -1,4 +1,4 @@
-package org.walkmod.pmd.ruleset.java.visitors;
+package org.walkmod.pmd.ruleset.java.basic.visitors;
 
 import java.lang.reflect.Method;
 
@@ -10,10 +10,10 @@ import org.walkmod.javalang.ast.expr.LiteralExpr;
 import org.walkmod.javalang.ast.expr.MethodCallExpr;
 import org.walkmod.javalang.ast.expr.ObjectCreationExpr;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
-import org.walkmod.pmd.visitors.AbstactPMDRuleVisitor;
+import org.walkmod.pmd.visitors.AbstractPMDRuleVisitor;
 
 @RequiresSemanticAnalysis
-public class BooleanInstantiation<T> extends AbstactPMDRuleVisitor<T> {
+public class BooleanInstantiation<T> extends AbstractPMDRuleVisitor<T> {
 
    @Override
    public void visit(MethodCallExpr n, T ctx) {

@@ -1,4 +1,4 @@
-package org.walkmod.pmd.ruleset.java.visitors;
+package org.walkmod.pmd.ruleset.java.basic.visitors;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -15,9 +15,9 @@ import org.walkmod.javalang.ast.body.VariableDeclaratorId;
 import org.walkmod.javalang.ast.stmt.BlockStmt;
 import org.walkmod.javalang.ast.type.ClassOrInterfaceType;
 import org.walkmod.javalang.ast.type.Type;
-import org.walkmod.pmd.visitors.AbstactPMDRuleVisitor;
+import org.walkmod.pmd.visitors.AbstractPMDRuleVisitor;
 
-public class OverrideBothEqualsAndHashcode<T> extends AbstactPMDRuleVisitor<T> {
+public class OverrideBothEqualsAndHashcode<T> extends AbstractPMDRuleVisitor<T> {
 
    public void visit(ClassOrInterfaceDeclaration coid, T ctx) {
       if (!coid.isInterface()) {

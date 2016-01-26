@@ -1,4 +1,4 @@
-package org.walkmod.pmd.ruleset.java.visitors;
+package org.walkmod.pmd.ruleset.java.basic.visitors;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -10,9 +10,9 @@ import org.walkmod.javalang.ast.expr.Expression;
 import org.walkmod.javalang.ast.stmt.BlockStmt;
 import org.walkmod.javalang.ast.stmt.IfStmt;
 import org.walkmod.javalang.ast.stmt.Statement;
-import org.walkmod.pmd.visitors.AbstactPMDRuleVisitor;
+import org.walkmod.pmd.visitors.AbstractPMDRuleVisitor;
 
-public class UnconditionalIfStatement<T> extends AbstactPMDRuleVisitor<T> {
+public class UnconditionalIfStatement<T> extends AbstractPMDRuleVisitor<T> {
 
    @Override
    public void visit(IfStmt n, T ctx) {

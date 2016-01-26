@@ -1,4 +1,4 @@
-package org.walkmod.pmd.ruleset.java.visitors;
+package org.walkmod.pmd.ruleset.java.basic.visitors;
 
 import java.io.File;
 import java.util.List;
@@ -9,6 +9,7 @@ import org.walkmod.javalang.ASTManager;
 import org.walkmod.javalang.ast.CompilationUnit;
 import org.walkmod.javalang.ast.body.BodyDeclaration;
 import org.walkmod.javalang.ast.body.MethodDeclaration;
+import org.walkmod.pmd.ruleset.java.basic.visitors.OverrideBothEqualsAndHashcode;
 
 public class OverrideBothEqualsAndHashcodeTest {
 

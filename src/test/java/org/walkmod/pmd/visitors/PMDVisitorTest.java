@@ -10,7 +10,7 @@ public class PMDVisitorTest {
 
    @Test
    public void testCfgFile() throws Exception {
-      PMDVisitor<?> visitor = new PMDVisitor<Object>();
+      PMDVisitor visitor = new PMDVisitor();
       visitor.setConfigurationFile("src/test/resources/pmd.xml");
       Set<String> rules = visitor.getRules();
 

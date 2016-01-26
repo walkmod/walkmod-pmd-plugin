@@ -1,4 +1,4 @@
-package org.walkmod.pmd.ruleset.java.visitors;
+package org.walkmod.pmd.ruleset.java.basic.visitors;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -13,9 +13,9 @@ import org.walkmod.javalang.ast.stmt.TryStmt;
 import org.walkmod.javalang.ast.type.Type;
 import org.walkmod.javalang.ast.type.VoidType;
 import org.walkmod.javalang.visitors.VoidVisitorAdapter;
-import org.walkmod.pmd.visitors.AbstactPMDRuleVisitor;
+import org.walkmod.pmd.visitors.AbstractPMDRuleVisitor;
 
-public class ReturnFromFinallyBlock<T> extends AbstactPMDRuleVisitor<T> {
+public class ReturnFromFinallyBlock<T> extends AbstractPMDRuleVisitor<T> {
 
    public void visit(MethodDeclaration md, T ctx) {
       Type type = md.getType();

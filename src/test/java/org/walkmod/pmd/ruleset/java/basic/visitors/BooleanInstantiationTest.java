@@ -1,4 +1,4 @@
-package org.walkmod.pmd.ruleset.java.visitors;
+package org.walkmod.pmd.ruleset.java.basic.visitors;
 
 import java.io.File;
 
@@ -12,6 +12,7 @@ import org.walkmod.javalang.ast.expr.VariableDeclarationExpr;
 import org.walkmod.javalang.ast.stmt.BlockStmt;
 import org.walkmod.javalang.ast.stmt.ExpressionStmt;
 import org.walkmod.javalang.test.SemanticTest;
+import org.walkmod.pmd.ruleset.java.basic.visitors.BooleanInstantiation;
 
 public class BooleanInstantiationTest extends SemanticTest {
 

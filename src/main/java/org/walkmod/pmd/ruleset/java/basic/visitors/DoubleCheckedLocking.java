@@ -1,4 +1,4 @@
-package org.walkmod.pmd.ruleset.java.visitors;
+package org.walkmod.pmd.ruleset.java.basic.visitors;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,9 +16,9 @@ import org.walkmod.javalang.ast.stmt.ReturnStmt;
 import org.walkmod.javalang.ast.stmt.Statement;
 import org.walkmod.javalang.ast.stmt.SynchronizedStmt;
 import org.walkmod.javalang.visitors.VoidVisitorAdapter;
-import org.walkmod.pmd.visitors.AbstactPMDRuleVisitor;
+import org.walkmod.pmd.visitors.AbstractPMDRuleVisitor;
 
-public class DoubleCheckedLocking<T> extends AbstactPMDRuleVisitor<T> {
+public class DoubleCheckedLocking<T> extends AbstractPMDRuleVisitor<T> {
 
    private class CheckSameObjectField<T> extends VoidVisitorAdapter<T> {
       private String name = null;

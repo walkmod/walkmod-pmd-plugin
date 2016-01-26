@@ -86,7 +86,7 @@ import org.walkmod.javalang.ast.type.VoidType;
 import org.walkmod.javalang.ast.type.WildcardType;
 import org.walkmod.javalang.visitors.VoidVisitorAdapter;
 
-public class AbstactPMDRuleVisitor<A> extends VoidVisitorAdapter<A> {
+public class AbstractPMDRuleVisitor<A> extends VoidVisitorAdapter<A> {
 
    private boolean visitChildren = true;
    

@@ -1,4 +1,4 @@
-package org.walkmod.pmd.ruleset.java.visitors;
+package org.walkmod.pmd.ruleset.java.basic.visitors;
 
 import java.io.File;
 
@@ -6,6 +6,7 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.walkmod.javalang.ast.CompilationUnit;
 import org.walkmod.javalang.test.SemanticTest;
+import org.walkmod.pmd.ruleset.java.basic.visitors.ForLoopShouldBeWhileLoop;
 
 public class ForLoopShouldBeWhileLoopTest extends SemanticTest {
    @Test

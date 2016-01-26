@@ -1,4 +1,4 @@
-package org.walkmod.pmd.ruleset.java.visitors;
+package org.walkmod.pmd.ruleset.java.basic.visitors;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -17,10 +17,10 @@ import org.walkmod.javalang.ast.stmt.BlockStmt;
 import org.walkmod.javalang.ast.stmt.ForStmt;
 import org.walkmod.javalang.ast.type.Type;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
-import org.walkmod.pmd.visitors.AbstactPMDRuleVisitor;
+import org.walkmod.pmd.visitors.AbstractPMDRuleVisitor;
 
 @RequiresSemanticAnalysis
-public class JumbledIncrementer<T> extends AbstactPMDRuleVisitor<T> {
+public class JumbledIncrementer<T> extends AbstractPMDRuleVisitor<T> {
 
    public void visit(ForStmt n, T ctx) {
       Node parent = n.getParentNode();

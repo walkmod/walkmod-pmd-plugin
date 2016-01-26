@@ -1,4 +1,4 @@
-package org.walkmod.pmd.ruleset.java.visitors;
+package org.walkmod.pmd.ruleset.java.basic.visitors;
 
 import java.io.File;
 
@@ -10,6 +10,7 @@ import org.walkmod.javalang.ast.body.MethodDeclaration;
 import org.walkmod.javalang.ast.stmt.BlockStmt;
 import org.walkmod.javalang.ast.stmt.IfStmt;
 import org.walkmod.javalang.ast.stmt.SynchronizedStmt;
+import org.walkmod.pmd.ruleset.java.basic.visitors.DoubleCheckedLocking;
 
 
 public class DoubleCheckedLockingTest {

@@ -1,4 +1,4 @@
-package org.walkmod.pmd.ruleset.java.visitors;
+package org.walkmod.pmd.ruleset.java.basic.visitors;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -9,9 +9,9 @@ import org.walkmod.javalang.ast.stmt.BlockStmt;
 import org.walkmod.javalang.ast.stmt.ForStmt;
 import org.walkmod.javalang.ast.stmt.Statement;
 import org.walkmod.javalang.ast.stmt.WhileStmt;
-import org.walkmod.pmd.visitors.AbstactPMDRuleVisitor;
+import org.walkmod.pmd.visitors.AbstractPMDRuleVisitor;
 
-public class ForLoopShouldBeWhileLoop<T> extends AbstactPMDRuleVisitor<T> {
+public class ForLoopShouldBeWhileLoop<T> extends AbstractPMDRuleVisitor<T> {
 
    public void visit(ForStmt n, T ctx) {
       List<Expression> initExprs = n.getInit();
