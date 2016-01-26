@@ -17,10 +17,10 @@ import org.walkmod.javalang.ast.stmt.BlockStmt;
 import org.walkmod.javalang.ast.stmt.ForStmt;
 import org.walkmod.javalang.ast.type.Type;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
-import org.walkmod.javalang.visitors.VoidVisitorAdapter;
+import org.walkmod.pmd.visitors.AbstactPMDRuleVisitor;
 
 @RequiresSemanticAnalysis
-public class JumbledIncrementer<T> extends VoidVisitorAdapter<T> {
+public class JumbledIncrementer<T> extends AbstactPMDRuleVisitor<T> {
 
    public void visit(ForStmt n, T ctx) {
       Node parent = n.getParentNode();

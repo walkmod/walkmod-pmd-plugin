@@ -9,9 +9,9 @@ import org.walkmod.javalang.ast.stmt.BlockStmt;
 import org.walkmod.javalang.ast.stmt.ForStmt;
 import org.walkmod.javalang.ast.stmt.Statement;
 import org.walkmod.javalang.ast.stmt.WhileStmt;
-import org.walkmod.javalang.visitors.VoidVisitorAdapter;
+import org.walkmod.pmd.visitors.AbstactPMDRuleVisitor;
 
-public class ForLoopShouldBeWhileLoop<T> extends VoidVisitorAdapter<T> {
+public class ForLoopShouldBeWhileLoop<T> extends AbstactPMDRuleVisitor<T> {
 
    public void visit(ForStmt n, T ctx) {
       List<Expression> initExprs = n.getInit();

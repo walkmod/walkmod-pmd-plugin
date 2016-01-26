@@ -15,9 +15,9 @@ import org.walkmod.javalang.ast.body.VariableDeclaratorId;
 import org.walkmod.javalang.ast.stmt.BlockStmt;
 import org.walkmod.javalang.ast.type.ClassOrInterfaceType;
 import org.walkmod.javalang.ast.type.Type;
-import org.walkmod.javalang.visitors.VoidVisitorAdapter;
+import org.walkmod.pmd.visitors.AbstactPMDRuleVisitor;
 
-public class OverrideBothEqualsAndHashcode<T> extends VoidVisitorAdapter<T> {
+public class OverrideBothEqualsAndHashcode<T> extends AbstactPMDRuleVisitor<T> {
 
    public void visit(ClassOrInterfaceDeclaration coid, T ctx) {
       if (!coid.isInterface()) {

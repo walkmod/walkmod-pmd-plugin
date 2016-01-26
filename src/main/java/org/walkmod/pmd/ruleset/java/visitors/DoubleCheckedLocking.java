@@ -16,8 +16,9 @@ import org.walkmod.javalang.ast.stmt.ReturnStmt;
 import org.walkmod.javalang.ast.stmt.Statement;
 import org.walkmod.javalang.ast.stmt.SynchronizedStmt;
 import org.walkmod.javalang.visitors.VoidVisitorAdapter;
+import org.walkmod.pmd.visitors.AbstactPMDRuleVisitor;
 
-public class DoubleCheckedLocking<T> extends VoidVisitorAdapter<T> {
+public class DoubleCheckedLocking<T> extends AbstactPMDRuleVisitor<T> {
 
    private class CheckSameObjectField<T> extends VoidVisitorAdapter<T> {
       private String name = null;

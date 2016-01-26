@@ -10,10 +10,10 @@ import org.walkmod.javalang.ast.expr.LiteralExpr;
 import org.walkmod.javalang.ast.expr.MethodCallExpr;
 import org.walkmod.javalang.ast.expr.ObjectCreationExpr;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
-import org.walkmod.javalang.visitors.VoidVisitorAdapter;
+import org.walkmod.pmd.visitors.AbstactPMDRuleVisitor;
 
 @RequiresSemanticAnalysis
-public class BooleanInstantiation<T> extends VoidVisitorAdapter<T> {
+public class BooleanInstantiation<T> extends AbstactPMDRuleVisitor<T> {
 
    @Override
    public void visit(MethodCallExpr n, T ctx) {
@@ -33,6 +33,7 @@ public class BooleanInstantiation<T> extends VoidVisitorAdapter<T> {
             }
          }
       }
+      super.visit(n, ctx);
    }
 
    @Override
@@ -51,5 +52,6 @@ public class BooleanInstantiation<T> extends VoidVisitorAdapter<T> {
             }
          }
       }
+      super.visit(n, ctx);
    }
 }

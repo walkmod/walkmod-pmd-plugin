@@ -10,9 +10,9 @@ import org.walkmod.javalang.ast.expr.Expression;
 import org.walkmod.javalang.ast.stmt.BlockStmt;
 import org.walkmod.javalang.ast.stmt.IfStmt;
 import org.walkmod.javalang.ast.stmt.Statement;
-import org.walkmod.javalang.visitors.VoidVisitorAdapter;
+import org.walkmod.pmd.visitors.AbstactPMDRuleVisitor;
 
-public class UnconditionalIfStatement<T> extends VoidVisitorAdapter<T> {
+public class UnconditionalIfStatement<T> extends AbstactPMDRuleVisitor<T> {
 
    @Override
    public void visit(IfStmt n, T ctx) {
