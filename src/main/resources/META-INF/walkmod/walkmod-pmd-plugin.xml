@@ -4,7 +4,10 @@
 
 <beans>
 	<bean id="org.walkmod:walkmod-pmd-plugin:pmd" class="org.walkmod.pmd.visitors.PMDVisitor"></bean>
-
+    
+    <bean id="org.walkmod:walkmod-pmd-plugin:AvoidUsingOctalValues"
+        class="org.walkmod.pmd.ruleset.java.basic.visitors.AvoidUsingOctalValues"></bean>
+            
 	<bean id="org.walkmod:walkmod-pmd-plugin:BooleanInstantiation"
 		class="org.walkmod.pmd.ruleset.java.basic.visitors.BooleanInstatiation"></bean>
 
