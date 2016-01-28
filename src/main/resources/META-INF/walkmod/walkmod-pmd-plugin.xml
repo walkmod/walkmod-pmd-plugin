@@ -11,6 +11,9 @@
 	<bean id="org.walkmod:walkmod-pmd-plugin:DoubleCheckedLocking"
 		class="org.walkmod.pmd.ruleset.java.basic.visitors.DoubleCheckedLocking"></bean>
 		
+	<bean id="org.walkmod:walkmod-pmd-plugin:ExtendsObject"
+        class="org.walkmod.pmd.ruleset.java.basic.visitors.ExtendsObject"></bean>
+		
 	<bean id="org.walkmod:walkmod-pmd-plugin:ForLoopShouldBeWhileLoop"
         class="org.walkmod.pmd.ruleset.java.basic.visitors.ForLoopShouldBeWhileLoop"></bean>
         
