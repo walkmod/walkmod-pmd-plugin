@@ -38,6 +38,9 @@
     <bean id="org.walkmod:walkmod-pmd-plugin:ReturnFromFinallyBlock"
         class="org.walkmod.pmd.ruleset.java.basic.visitors.ReturnFromFinallyBlock"></bean>
         
+    <bean id="org.walkmod:walkmod-pmd-plugin:SimplifiedTernary"
+        class="org.walkmod.pmd.ruleset.java.basic.visitors.SimplifiedTernary"></bean>
+        
     <bean id="org.walkmod:walkmod-pmd-plugin:UnconditionalIfStatement"
         class="org.walkmod.pmd.ruleset.java.basic.visitors.UnconditionalIfStatement"></bean>	
 
