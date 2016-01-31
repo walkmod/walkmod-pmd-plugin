@@ -5,6 +5,9 @@
 <beans>
 	<bean id="org.walkmod:walkmod-pmd-plugin:pmd" class="org.walkmod.pmd.visitors.PMDVisitor"></bean>
     
+     <bean id="org.walkmod:walkmod-pmd-plugin:AvoidMultipleUnaryOperators"
+        class="org.walkmod.pmd.ruleset.java.basic.visitors.AvoidMultipleUnaryOperators"></bean>
+        
     <bean id="org.walkmod:walkmod-pmd-plugin:AvoidUsingOctalValues"
         class="org.walkmod.pmd.ruleset.java.basic.visitors.AvoidUsingOctalValues"></bean>
     
