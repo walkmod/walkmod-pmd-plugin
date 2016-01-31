@@ -4,47 +4,50 @@
 
 <beans>
 	<bean id="org.walkmod:walkmod-pmd-plugin:pmd" class="org.walkmod.pmd.visitors.PMDVisitor"></bean>
-    
-     <bean id="org.walkmod:walkmod-pmd-plugin:AvoidMultipleUnaryOperators"
-        class="org.walkmod.pmd.ruleset.java.basic.visitors.AvoidMultipleUnaryOperators"></bean>
-        
-    <bean id="org.walkmod:walkmod-pmd-plugin:AvoidUsingOctalValues"
-        class="org.walkmod.pmd.ruleset.java.basic.visitors.AvoidUsingOctalValues"></bean>
-    
-    <bean id="org.walkmod:walkmod-pmd-plugin:BigIntegerInstantiation"
-        class="org.walkmod.pmd.ruleset.java.basic.visitors.BigIntegerInstantiation"></bean>
-                
+
+	<bean id="org.walkmod:walkmod-pmd-plugin:AvoidMultipleUnaryOperators"
+		class="org.walkmod.pmd.ruleset.java.basic.visitors.AvoidMultipleUnaryOperators"></bean>
+
+	<bean id="org.walkmod:walkmod-pmd-plugin:AvoidUsingOctalValues"
+		class="org.walkmod.pmd.ruleset.java.basic.visitors.AvoidUsingOctalValues"></bean>
+
+	<bean id="org.walkmod:walkmod-pmd-plugin:BigIntegerInstantiation"
+		class="org.walkmod.pmd.ruleset.java.basic.visitors.BigIntegerInstantiation"></bean>
+
 	<bean id="org.walkmod:walkmod-pmd-plugin:BooleanInstantiation"
 		class="org.walkmod.pmd.ruleset.java.basic.visitors.BooleanInstatiation"></bean>
 
-    <bean id="org.walkmod:walkmod-pmd-plugin:DontCallThreadRun"
-        class="org.walkmod.pmd.ruleset.java.basic.visitors.DontCallThreadRun"></bean>
-        
+	<bean id="org.walkmod:walkmod-pmd-plugin:CheckResultSet"
+		class="org.walkmod.pmd.ruleset.java.basic.visitors.CheckResultSet"></bean>
+
+	<bean id="org.walkmod:walkmod-pmd-plugin:DontCallThreadRun"
+		class="org.walkmod.pmd.ruleset.java.basic.visitors.DontCallThreadRun"></bean>
+
 	<bean id="org.walkmod:walkmod-pmd-plugin:DoubleCheckedLocking"
 		class="org.walkmod.pmd.ruleset.java.basic.visitors.DoubleCheckedLocking"></bean>
-		
+
 	<bean id="org.walkmod:walkmod-pmd-plugin:ExtendsObject"
-        class="org.walkmod.pmd.ruleset.java.basic.visitors.ExtendsObject"></bean>
-        
+		class="org.walkmod.pmd.ruleset.java.basic.visitors.ExtendsObject"></bean>
+
 	<bean id="org.walkmod:walkmod-pmd-plugin:ForLoopShouldBeWhileLoop"
-        class="org.walkmod.pmd.ruleset.java.basic.visitors.ForLoopShouldBeWhileLoop"></bean>
-        
-    <bean id="org.walkmod:walkmod-pmd-plugin:JumbledIncrementer"
-        class="org.walkmod.pmd.ruleset.java.basic.visitors.JumbledIncrementer"></bean>
-        
-    <bean id="org.walkmod:walkmod-pmd-plugin:MisplacedNullCheck"
-        class="org.walkmod.pmd.ruleset.java.basic.visitors.MisplacedNullCheck"></bean>
-        
-    <bean id="org.walkmod:walkmod-pmd-plugin:OverrideBothEqualsAndHashcode"
-        class="org.walkmod.pmd.ruleset.java.basic.visitors.OverrideBothEqualsAndHashcode"></bean>
-        
-    <bean id="org.walkmod:walkmod-pmd-plugin:ReturnFromFinallyBlock"
-        class="org.walkmod.pmd.ruleset.java.basic.visitors.ReturnFromFinallyBlock"></bean>
-        
-    <bean id="org.walkmod:walkmod-pmd-plugin:SimplifiedTernary"
-        class="org.walkmod.pmd.ruleset.java.basic.visitors.SimplifiedTernary"></bean>
-        
-    <bean id="org.walkmod:walkmod-pmd-plugin:UnconditionalIfStatement"
-        class="org.walkmod.pmd.ruleset.java.basic.visitors.UnconditionalIfStatement"></bean>	
+		class="org.walkmod.pmd.ruleset.java.basic.visitors.ForLoopShouldBeWhileLoop"></bean>
+
+	<bean id="org.walkmod:walkmod-pmd-plugin:JumbledIncrementer"
+		class="org.walkmod.pmd.ruleset.java.basic.visitors.JumbledIncrementer"></bean>
+
+	<bean id="org.walkmod:walkmod-pmd-plugin:MisplacedNullCheck"
+		class="org.walkmod.pmd.ruleset.java.basic.visitors.MisplacedNullCheck"></bean>
+
+	<bean id="org.walkmod:walkmod-pmd-plugin:OverrideBothEqualsAndHashcode"
+		class="org.walkmod.pmd.ruleset.java.basic.visitors.OverrideBothEqualsAndHashcode"></bean>
+
+	<bean id="org.walkmod:walkmod-pmd-plugin:ReturnFromFinallyBlock"
+		class="org.walkmod.pmd.ruleset.java.basic.visitors.ReturnFromFinallyBlock"></bean>
+
+	<bean id="org.walkmod:walkmod-pmd-plugin:SimplifiedTernary"
+		class="org.walkmod.pmd.ruleset.java.basic.visitors.SimplifiedTernary"></bean>
+
+	<bean id="org.walkmod:walkmod-pmd-plugin:UnconditionalIfStatement"
+		class="org.walkmod.pmd.ruleset.java.basic.visitors.UnconditionalIfStatement"></bean>
 
 </beans>
