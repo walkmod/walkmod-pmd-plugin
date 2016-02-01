@@ -35,9 +35,6 @@
 	<bean id="org.walkmod:walkmod-pmd-plugin:ForLoopShouldBeWhileLoop"
 		class="org.walkmod.pmd.ruleset.java.basic.visitors.ForLoopShouldBeWhileLoop"></bean>
 
-	<bean id="org.walkmod:walkmod-pmd-plugin:JumbledIncrementer"
-		class="org.walkmod.pmd.ruleset.java.basic.visitors.JumbledIncrementer"></bean>
-
 	<bean id="org.walkmod:walkmod-pmd-plugin:MisplacedNullCheck"
 		class="org.walkmod.pmd.ruleset.java.basic.visitors.MisplacedNullCheck"></bean>
 

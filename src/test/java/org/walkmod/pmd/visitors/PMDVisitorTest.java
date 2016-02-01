@@ -26,7 +26,7 @@ public class PMDVisitorTest extends SemanticTest{
 
       Assert.assertNotNull(rules);
       
-      Assert.assertTrue(rules.contains("JumbledIncrementer"));
+      Assert.assertTrue(rules.contains("BooleanInstantiation"));
 
    }
    
