@@ -17,6 +17,9 @@
 	<bean id="org.walkmod:walkmod-pmd-plugin:BooleanInstantiation"
 		class="org.walkmod.pmd.ruleset.java.basic.visitors.BooleanInstatiation"></bean>
 
+	<bean id="org.walkmod:walkmod-pmd-plugin:BrokenNullCheck"
+		class="org.walkmod.pmd.ruleset.java.basic.visitors.BrokenNullCheck"></bean>
+
 	<bean id="org.walkmod:walkmod-pmd-plugin:CheckResultSet"
 		class="org.walkmod.pmd.ruleset.java.basic.visitors.CheckResultSet"></bean>
 
