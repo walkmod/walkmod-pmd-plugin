@@ -1,0 +1,52 @@
+walkmod-pmd-plugin
+==================
+Raquel Pau <raquelpau@gmail.com>
+
+This is a walkmod plugin to automatically correct those PMD rules that have a unique resolution. Currently, the rules supported are:
+
+- basic/AvoidMultipleUnaryOperators
+- basic/AvoidUsingOctalValues
+- basic/AvoidUsingOctalValues
+- basic/BigIntegerInstantiation
+- basic/BooleanInstantiation
+- basic/BrokenNullCheck
+- basic/CheckResultSet
+- basic/DontCallThreadRun
+- basic/DoubleCheckedLocking
+- basic/ExtendsObject
+- basic/ForLoopShouldBeWhileLoop
+- basic/MisplacedNullCheck
+- basic/OverrideBothEqualsAndHashcode
+- basic/ReturnFromFinallyBlock
+- basic/SimplifiedTernary
+- basic/UnconditionalIfStatement
+
+== Usage
+
+1) Verify that your walkmod version is > = 2.2.0
+
+2) Execute the following command to add this code transformation plugin as part of your conventions.
+
+----
+walkmod add pmd -DconfigurationFile='my-pmd-file.xml'
+----
+
+3) Now, You see the results, executing: 
+
+----
+walkmod apply
+----
+
+Or, alternatively, you can also check which would be the modified classes typing:
+
+----
+walkmod check
+----
+
+== Contributing
+
+If you want to hack on this, fork it, improve it and send me a pull request.
+
+To get started using it, just clone it and call mvn install. 
+
+
