@@ -2,7 +2,7 @@ walkmod-pmd-plugin
 ==================
 Raquel Pau <raquelpau@gmail.com>
 
-This is a walkmod plugin to automatically correct those PMD rules that have a unique resolution. Currently, the rules supported are:
+This is a walkmod plugin to automatically correct those PMD rules that have a unique resolution. Currently, the supported rules are:
 
 ----
 - basic/AvoidMultipleUnaryOperators
