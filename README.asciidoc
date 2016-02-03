@@ -4,6 +4,7 @@ Raquel Pau <raquelpau@gmail.com>
 
 This is a walkmod plugin to automatically correct those PMD rules that have a unique resolution. Currently, the rules supported are:
 
+----
 - basic/AvoidMultipleUnaryOperators
 - basic/AvoidUsingOctalValues
 - basic/AvoidUsingOctalValues
@@ -20,6 +21,7 @@ This is a walkmod plugin to automatically correct those PMD rules that have a un
 - basic/ReturnFromFinallyBlock
 - basic/SimplifiedTernary
 - basic/UnconditionalIfStatement
+----
 
 == Usage
 
