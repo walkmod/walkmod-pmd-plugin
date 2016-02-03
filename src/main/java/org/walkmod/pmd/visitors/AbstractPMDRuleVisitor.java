@@ -1,3 +1,18 @@
+/* 
+  Copyright (C) 2016 Raquel Pau.
+ 
+  Walkmod is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Lesser General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  Walkmod is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Lesser General Public License for more details.
+ 
+  You should have received a copy of the GNU Lesser General Public License
+  along with Walkmod.  If not, see <http://www.gnu.org/licenses/>.*/
 package org.walkmod.pmd.visitors;
 
 import org.walkmod.javalang.ast.BlockComment;
@@ -89,512 +104,512 @@ import org.walkmod.javalang.visitors.VoidVisitorAdapter;
 public class AbstractPMDRuleVisitor<A> extends VoidVisitorAdapter<A> {
 
    private boolean visitChildren = true;
-   
-   public void visit(CompilationUnit n, A arg){
-      if(visitChildren){
+
+   public void visit(CompilationUnit n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(PackageDeclaration n, A arg){
-      if(visitChildren){
+   public void visit(PackageDeclaration n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(ImportDeclaration n, A arg){
-      if(visitChildren){
+   public void visit(ImportDeclaration n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(TypeParameter n, A arg){
-      if(visitChildren){
+   public void visit(TypeParameter n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(LineComment n, A arg){
-      if(visitChildren){
+   public void visit(LineComment n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(BlockComment n, A arg){
-      if(visitChildren){
+   public void visit(BlockComment n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(ClassOrInterfaceDeclaration n, A arg){
-      if(visitChildren){
+   public void visit(ClassOrInterfaceDeclaration n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(EnumDeclaration n, A arg){
-      if(visitChildren){
+   public void visit(EnumDeclaration n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(EmptyTypeDeclaration n, A arg){
-      if(visitChildren){
+   public void visit(EmptyTypeDeclaration n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(EnumConstantDeclaration n, A arg){
-      if(visitChildren){
+   public void visit(EnumConstantDeclaration n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(AnnotationDeclaration n, A arg){
-      if(visitChildren){
+   public void visit(AnnotationDeclaration n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(AnnotationMemberDeclaration n, A arg){
-      if(visitChildren){
+   public void visit(AnnotationMemberDeclaration n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(FieldDeclaration n, A arg){
-      if(visitChildren){
+   public void visit(FieldDeclaration n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(VariableDeclarator n, A arg){
-      if(visitChildren){
+   public void visit(VariableDeclarator n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(VariableDeclaratorId n, A arg){
-      if(visitChildren){
+   public void visit(VariableDeclaratorId n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(ConstructorDeclaration n, A arg){
-      if(visitChildren){
+   public void visit(ConstructorDeclaration n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(MethodDeclaration n, A arg){
-      if(visitChildren){
+   public void visit(MethodDeclaration n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(Parameter n, A arg){
-      if(visitChildren){
+   public void visit(Parameter n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(EmptyMemberDeclaration n, A arg){
-      if(visitChildren){
+   public void visit(EmptyMemberDeclaration n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(InitializerDeclaration n, A arg){
-      if(visitChildren){
+   public void visit(InitializerDeclaration n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(JavadocComment n, A arg){
-      if(visitChildren){
+   public void visit(JavadocComment n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(ClassOrInterfaceType n, A arg){
-      if(visitChildren){
+   public void visit(ClassOrInterfaceType n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(PrimitiveType n, A arg){
-      if(visitChildren){
+   public void visit(PrimitiveType n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(ReferenceType n, A arg){
-      if(visitChildren){
+   public void visit(ReferenceType n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(VoidType n, A arg){
-      if(visitChildren){
+   public void visit(VoidType n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(WildcardType n, A arg){
-      if(visitChildren){
+   public void visit(WildcardType n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(ArrayAccessExpr n, A arg){
-      if(visitChildren){
+   public void visit(ArrayAccessExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(ArrayCreationExpr n, A arg){
-      if(visitChildren){
+   public void visit(ArrayCreationExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(ArrayInitializerExpr n, A arg){
-      if(visitChildren){
+   public void visit(ArrayInitializerExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(AssignExpr n, A arg){
-      if(visitChildren){
+   public void visit(AssignExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(BinaryExpr n, A arg){
-      if(visitChildren){
+   public void visit(BinaryExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(CastExpr n, A arg){
-      if(visitChildren){
+   public void visit(CastExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(ClassExpr n, A arg){
-      if(visitChildren){
+   public void visit(ClassExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(ConditionalExpr n, A arg){
-      if(visitChildren){
+   public void visit(ConditionalExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(EnclosedExpr n, A arg){
-      if(visitChildren){
+   public void visit(EnclosedExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(FieldAccessExpr n, A arg){
-      if(visitChildren){
+   public void visit(FieldAccessExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(InstanceOfExpr n, A arg){
-      if(visitChildren){
+   public void visit(InstanceOfExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(StringLiteralExpr n, A arg){
-      if(visitChildren){
+   public void visit(StringLiteralExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(IntegerLiteralExpr n, A arg){
-      if(visitChildren){
+   public void visit(IntegerLiteralExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(LongLiteralExpr n, A arg){
-      if(visitChildren){
+   public void visit(LongLiteralExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(IntegerLiteralMinValueExpr n, A arg){
-      if(visitChildren){
+   public void visit(IntegerLiteralMinValueExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(LongLiteralMinValueExpr n, A arg){
-      if(visitChildren){
+   public void visit(LongLiteralMinValueExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(CharLiteralExpr n, A arg){
-      if(visitChildren){
+   public void visit(CharLiteralExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(DoubleLiteralExpr n, A arg){
-      if(visitChildren){
+   public void visit(DoubleLiteralExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(BooleanLiteralExpr n, A arg){
-      if(visitChildren){
+   public void visit(BooleanLiteralExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(NullLiteralExpr n, A arg){
-      if(visitChildren){
+   public void visit(NullLiteralExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(MethodCallExpr n, A arg){
-      if(visitChildren){
+   public void visit(MethodCallExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(NameExpr n, A arg){
-      if(visitChildren){
+   public void visit(NameExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(ObjectCreationExpr n, A arg){
-      if(visitChildren){
+   public void visit(ObjectCreationExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(QualifiedNameExpr n, A arg){
-      if(visitChildren){
+   public void visit(QualifiedNameExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(ThisExpr n, A arg){
-      if(visitChildren){
+   public void visit(ThisExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(SuperExpr n, A arg){
-      if(visitChildren){
+   public void visit(SuperExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(UnaryExpr n, A arg){
-      if(visitChildren){
+   public void visit(UnaryExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(VariableDeclarationExpr n, A arg){
-      if(visitChildren){
+   public void visit(VariableDeclarationExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(MarkerAnnotationExpr n, A arg){
-      if(visitChildren){
+   public void visit(MarkerAnnotationExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(SingleMemberAnnotationExpr n, A arg){
-      if(visitChildren){
+   public void visit(SingleMemberAnnotationExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(NormalAnnotationExpr n, A arg){
-      if(visitChildren){
+   public void visit(NormalAnnotationExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(MemberValuePair n, A arg){
-      if(visitChildren){
+   public void visit(MemberValuePair n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(ExplicitConstructorInvocationStmt n, A arg){
-      if(visitChildren){
+   public void visit(ExplicitConstructorInvocationStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(TypeDeclarationStmt n, A arg){
-      if(visitChildren){
+   public void visit(TypeDeclarationStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(AssertStmt n, A arg){
-      if(visitChildren){
+   public void visit(AssertStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(BlockStmt n, A arg){
-      if(visitChildren){
+   public void visit(BlockStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(LabeledStmt n, A arg){
-      if(visitChildren){
+   public void visit(LabeledStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(EmptyStmt n, A arg){
-      if(visitChildren){
+   public void visit(EmptyStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(ExpressionStmt n, A arg){
-      if(visitChildren){
+   public void visit(ExpressionStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(SwitchStmt n, A arg){
-      if(visitChildren){
+   public void visit(SwitchStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(SwitchEntryStmt n, A arg){
-      if(visitChildren){
+   public void visit(SwitchEntryStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(BreakStmt n, A arg){
-      if(visitChildren){
+   public void visit(BreakStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(ReturnStmt n, A arg){
-      if(visitChildren){
+   public void visit(ReturnStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(IfStmt n, A arg){
-      if(visitChildren){
+   public void visit(IfStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(WhileStmt n, A arg){
-      if(visitChildren){
+   public void visit(WhileStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(ContinueStmt n, A arg){
-      if(visitChildren){
+   public void visit(ContinueStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(DoStmt n, A arg){
-      if(visitChildren){
+   public void visit(DoStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(ForeachStmt n, A arg){
-      if(visitChildren){
+   public void visit(ForeachStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(ForStmt n, A arg){
-      if(visitChildren){
+   public void visit(ForStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(ThrowStmt n, A arg){
-      if(visitChildren){
+   public void visit(ThrowStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(SynchronizedStmt n, A arg){
-      if(visitChildren){
+   public void visit(SynchronizedStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(TryStmt n, A arg){
-      if(visitChildren){
+   public void visit(TryStmt n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(CatchClause n, A arg){
-      if(visitChildren){
+   public void visit(CatchClause n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(MultiTypeParameter n, A arg){
-      if(visitChildren){
+   public void visit(MultiTypeParameter n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(LambdaExpr n, A arg){
-      if(visitChildren){
+   public void visit(LambdaExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(MethodReferenceExpr n, A arg){
-      if(visitChildren){
+   public void visit(MethodReferenceExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(TypeExpr n, A arg){
-      if(visitChildren){
+   public void visit(TypeExpr n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
 
-   public void visit(IntersectionType n, A arg){
-      if(visitChildren){
+   public void visit(IntersectionType n, A arg) {
+      if (visitChildren) {
          super.visit(n, arg);
       }
    }
-   
-   public void visitChildren(boolean visitChildren){
+
+   public void visitChildren(boolean visitChildren) {
       this.visitChildren = visitChildren;
    }
 }

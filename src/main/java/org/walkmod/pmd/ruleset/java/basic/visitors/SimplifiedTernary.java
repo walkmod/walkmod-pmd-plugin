@@ -1,3 +1,18 @@
+/* 
+  Copyright (C) 2016 Raquel Pau.
+ 
+  Walkmod is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Lesser General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  Walkmod is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Lesser General Public License for more details.
+ 
+  You should have received a copy of the GNU Lesser General Public License
+  along with Walkmod.  If not, see <http://www.gnu.org/licenses/>.*/
 package org.walkmod.pmd.ruleset.java.basic.visitors;
 
 import org.walkmod.javalang.ast.SymbolData;
@@ -20,29 +35,34 @@ public class SimplifiedTernary<T> extends AbstractPMDRuleVisitor<T> {
          SymbolData sdThen = thenExpr.getSymbolData();
          if (sdThen != null) {
             if (sdThen.getClazz().isAssignableFrom(boolean.class)) {
-               if(thenExpr instanceof BooleanLiteralExpr){
+               if (thenExpr instanceof BooleanLiteralExpr) {
                   BooleanLiteralExpr literal = (BooleanLiteralExpr) thenExpr;
-                  if(literal.getValue()){
+                  if (literal.getValue()) {
                      //condition || foo  when the literalBoolean is true
-                     n.getParentNode().replaceChildNode(n, new BinaryExpr(n.getCondition(), n.getElseExpr(), BinaryExpr.Operator.or));
-                  }
-                  else{
+                     n.getParentNode().replaceChildNode(n,
+                           new BinaryExpr(n.getCondition(), n.getElseExpr(), BinaryExpr.Operator.or));
+                  } else {
                      //!condition && foo when the literalBoolean is false
-                     n.getParentNode().replaceChildNode(n, new BinaryExpr(new UnaryExpr(n.getCondition(), UnaryExpr.Operator.not), n.getElseExpr(), BinaryExpr.Operator.and));
+                     n.getParentNode().replaceChildNode(
+                           n,
+                           new BinaryExpr(new UnaryExpr(n.getCondition(), UnaryExpr.Operator.not), n.getElseExpr(),
+                                 BinaryExpr.Operator.and));
                   }
-               }
-               else if(elseExpr instanceof BooleanLiteralExpr){
+               } else if (elseExpr instanceof BooleanLiteralExpr) {
                   BooleanLiteralExpr literal = (BooleanLiteralExpr) elseExpr;
-                  
-                  if(literal.getValue()){
+
+                  if (literal.getValue()) {
                      //!condition || foo when the literalBoolean is true
-                     n.getParentNode().replaceChildNode(n, new BinaryExpr(new UnaryExpr(n.getCondition(), UnaryExpr.Operator.not), n.getElseExpr(), BinaryExpr.Operator.or));
-                  }
-                  else{
+                     n.getParentNode().replaceChildNode(
+                           n,
+                           new BinaryExpr(new UnaryExpr(n.getCondition(), UnaryExpr.Operator.not), n.getElseExpr(),
+                                 BinaryExpr.Operator.or));
+                  } else {
                      //condition && foo  when the literalBoolean is false
-                     n.getParentNode().replaceChildNode(n, new BinaryExpr(n.getCondition(), n.getElseExpr(), BinaryExpr.Operator.and));
+                     n.getParentNode().replaceChildNode(n,
+                           new BinaryExpr(n.getCondition(), n.getElseExpr(), BinaryExpr.Operator.and));
                   }
-                  
+
                }
             }
          }

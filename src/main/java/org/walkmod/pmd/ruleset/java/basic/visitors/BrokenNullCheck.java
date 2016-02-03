@@ -1,3 +1,18 @@
+/* 
+  Copyright (C) 2016 Raquel Pau.
+ 
+  Walkmod is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Lesser General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  Walkmod is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Lesser General Public License for more details.
+ 
+  You should have received a copy of the GNU Lesser General Public License
+  along with Walkmod.  If not, see <http://www.gnu.org/licenses/>.*/
 package org.walkmod.pmd.ruleset.java.basic.visitors;
 
 import org.walkmod.javalang.ASTManager;
@@ -114,8 +129,9 @@ public class BrokenNullCheck<T> extends AbstractPMDRuleVisitor<T> {
                }
             }
 
-            hasUsageInChild = (srParent == null && srParentRef == null) || (srParent != null && srParentRef != null
-                  && srParent.getSymbolDefinition() == srParentRef.getSymbolDefinition());
+            hasUsageInChild = (srParent == null && srParentRef == null)
+                  || (srParent != null && srParentRef != null && srParent.getSymbolDefinition() == srParentRef
+                        .getSymbolDefinition());
 
          }
          if (sd == null && referredExpression.getSymbolDefinition() == null) {
@@ -181,8 +197,8 @@ public class BrokenNullCheck<T> extends AbstractPMDRuleVisitor<T> {
                      try {
                         Expression name = (Expression) ASTManager.parse(NameExpr.class, referredExpression.toString());
                         Node parent = child.getParentNode();
-                        Expression aux = new EnclosedExpr(new BinaryExpr(
-                              new BinaryExpr(name, new NullLiteralExpr(), nullOperator), child, selectedOperator));
+                        Expression aux = new EnclosedExpr(new BinaryExpr(new BinaryExpr(name, new NullLiteralExpr(),
+                              nullOperator), child, selectedOperator));
                         parent.replaceChildNode(child, aux);
 
                      } catch (ParseException e) {

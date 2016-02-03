@@ -1,3 +1,18 @@
+/* 
+  Copyright (C) 2016 Raquel Pau.
+ 
+  Walkmod is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Lesser General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  Walkmod is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Lesser General Public License for more details.
+ 
+  You should have received a copy of the GNU Lesser General Public License
+  along with Walkmod.  If not, see <http://www.gnu.org/licenses/>.*/
 package org.walkmod.pmd.ruleset.java.basic.visitors;
 
 import org.walkmod.javalang.ast.FieldSymbolData;
@@ -44,7 +59,7 @@ public class MisplacedNullCheck<T> extends AbstractPMDRuleVisitor<T> {
                   }
                }
             } else if (left instanceof NullLiteralExpr) {
-               
+
                if (right instanceof NameExpr) {
 
                   if (bo.getRight() == n) {
@@ -112,8 +127,9 @@ public class MisplacedNullCheck<T> extends AbstractPMDRuleVisitor<T> {
                }
             }
 
-            valid = (srParent == null && srParentRef == null) || (srParent != null && srParentRef != null
-                  && srParent.getSymbolDefinition() == srParentRef.getSymbolDefinition());
+            valid = (srParent == null && srParentRef == null)
+                  || (srParent != null && srParentRef != null && srParent.getSymbolDefinition() == srParentRef
+                        .getSymbolDefinition());
 
          }
          if (sd == null && referredExpression.getSymbolDefinition() == null) {

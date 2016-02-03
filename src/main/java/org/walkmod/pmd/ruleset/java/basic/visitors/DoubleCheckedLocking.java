@@ -1,3 +1,18 @@
+/* 
+  Copyright (C) 2016 Raquel Pau.
+ 
+  Walkmod is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Lesser General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+ 
+  Walkmod is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Lesser General Public License for more details.
+ 
+  You should have received a copy of the GNU Lesser General Public License
+  along with Walkmod.  If not, see <http://www.gnu.org/licenses/>.*/
 package org.walkmod.pmd.ruleset.java.basic.visitors;
 
 import java.util.LinkedList;
@@ -85,10 +100,10 @@ public class DoubleCheckedLocking<T> extends AbstractPMDRuleVisitor<T> {
                                        List<Statement> newStmts = new LinkedList<Statement>();
                                        newStmts.add(blockStmts.get(0));
                                        newBlock.setStmts(newStmts);
-                                       
-                                       IfStmt newIf = new IfStmt(new BinaryExpr(new NameExpr(variableNameOfReturnExpression),
-                                             new NullLiteralExpr(), BinaryExpr.Operator.equals), newBlock,
-                                             null);
+
+                                       IfStmt newIf = new IfStmt(new BinaryExpr(new NameExpr(
+                                             variableNameOfReturnExpression), new NullLiteralExpr(),
+                                             BinaryExpr.Operator.equals), newBlock, null);
                                        innerStmts.add(newIf);
                                        innerBlock.setStmts(innerStmts);
                                        synchStmt.setBlock(innerBlock);
@@ -104,8 +119,9 @@ public class DoubleCheckedLocking<T> extends AbstractPMDRuleVisitor<T> {
                                     SynchronizedStmt synchStmt = new SynchronizedStmt();
                                     BlockStmt innerBlock = new BlockStmt();
                                     List<Statement> innerStmts = new LinkedList<Statement>();
-                                    IfStmt newIf = new IfStmt(new BinaryExpr(new NameExpr(variableNameOfReturnExpression),
-                                          new NullLiteralExpr(), BinaryExpr.Operator.equals), thenStmt, null);
+                                    IfStmt newIf = new IfStmt(new BinaryExpr(new NameExpr(
+                                          variableNameOfReturnExpression), new NullLiteralExpr(),
+                                          BinaryExpr.Operator.equals), thenStmt, null);
                                     innerStmts.add(newIf);
                                     innerBlock.setStmts(innerStmts);
                                     synchStmt.setBlock(innerBlock);
