@@ -103,5 +103,5 @@
 			<email>raquelpau@gmail.com</email>
 		</developer>
 	</developers>
-	<description>Walkmod plugin to fix code according your PMD configuration</description>
+	<description>Walkmod plugin to automatically fix the reported problems by PMD</description>
 </project>
