@@ -16,7 +16,7 @@ public class AvoidUsingOctalValues<T> extends AbstractPMDRuleVisitor<T> {
          int value = 0;
          int power = 1;
          for (int i = digits.length - 1; i >= 0; i--) {
-            Integer digit = Integer.parseUnsignedInt(Character.toString(digits[i]));
+            Integer digit = Integer.parseInt(Character.toString(digits[i]));
             value = value + digit * power;
             power = power * 8;
          }
