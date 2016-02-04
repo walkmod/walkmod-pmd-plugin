@@ -126,7 +126,7 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
 
    private List<AbstractPMDRuleVisitor<?>> visitors = null;
 
-   private void parseCfg(String config) throws Exception {
+   private void parseCfg(String config, String ruleName) throws Exception {
       File cfgFile = new File(config);
       FileInputStream is = new FileInputStream(cfgFile);
       try {
@@ -140,12 +140,23 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
             if (rule instanceof Element) {
                Element elem = (Element) rule;
                if (elem.hasAttribute("ref")) {
-                  String path = elem.getAttribute("ref");
+                  String ref = elem.getAttribute("ref");
+                  int index = ref.indexOf(".xml");
+                  String path = ref.substring(0, index + 4);
                   URL resource = Thread.currentThread().getContextClassLoader().getResource(path);
                   if (resource != null) {
                      File file = new File(resource.toURI());
-                     parseCfg(file.getAbsolutePath());
+                     String aux = ref.substring(index + 4);
+                     if (aux.startsWith("/")) {
+                        aux = aux.substring(1);
+                     }
+                     String ruleId = null;
+                     if (aux.length() > 1) {
+                        ruleId = aux;
+                     }
+                     parseCfg(file.getAbsolutePath(), ruleId);
                   }
+
                   NodeList children = elem.getChildNodes();
                   int limit = children.getLength();
                   for (int k = 0; k < limit; k++) {
@@ -161,7 +172,10 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
 
                } else {
                   if (elem.hasAttribute("name")) {
-                     this.rules.add(elem.getAttribute("name"));
+                     String attr = elem.getAttribute("name");
+                     if (ruleName == null || ruleName.equals(attr)) {
+                        this.rules.add(attr);
+                     }
                   }
                }
             }
@@ -949,6 +963,6 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
 
    public void setConfigurationFile(String configurationFile) throws Exception {
       this.configurationfile = configurationFile;
-      parseCfg(configurationfile);
+      parseCfg(configurationfile, null);
    }
 }

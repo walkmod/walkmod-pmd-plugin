@@ -31,6 +31,18 @@ public class PMDVisitorTest extends SemanticTest{
    }
    
    @Test
+   public void testCfgFile2() throws Exception {
+      PMDVisitor visitor = new PMDVisitor();
+      visitor.setConfigurationFile("src/test/resources/pmd2.xml");
+      Set<String> rules = visitor.getRules();
+
+      Assert.assertNotNull(rules);
+      
+      Assert.assertTrue(rules.contains("AvoidUsingOctalValues"));
+
+   }
+   
+   @Test
    public void testWorkflow() throws Exception{
       PMDVisitor visitor = new PMDVisitor();
       visitor.setConfigurationFile("src/test/resources/pmd.xml");
