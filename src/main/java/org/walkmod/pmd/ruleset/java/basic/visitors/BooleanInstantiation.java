@@ -23,6 +23,7 @@ import org.walkmod.javalang.ast.expr.Expression;
 import org.walkmod.javalang.ast.expr.FieldAccessExpr;
 import org.walkmod.javalang.ast.expr.LiteralExpr;
 import org.walkmod.javalang.ast.expr.MethodCallExpr;
+import org.walkmod.javalang.ast.expr.NameExpr;
 import org.walkmod.javalang.ast.expr.ObjectCreationExpr;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
 import org.walkmod.pmd.visitors.AbstractPMDRuleVisitor;
@@ -61,7 +62,8 @@ public class BooleanInstantiation<T> extends AbstractPMDRuleVisitor<T> {
                Node parent = n.getParentNode();
                String label = n.getArgs().get(0).toString().toLowerCase();
                if (label.equals("\"true\"") || label.equals("\"false\"")) {
-                  FieldAccessExpr newExpr = new FieldAccessExpr(n.getScope(), label.toUpperCase());
+                  FieldAccessExpr newExpr = new FieldAccessExpr(new NameExpr("Boolean"),
+                        label.toUpperCase().replaceAll("\"", ""));
                   parent.replaceChildNode(n, newExpr);
                }
             }

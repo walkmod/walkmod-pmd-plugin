@@ -17,7 +17,7 @@ package org.walkmod.pmd.visitors;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.net.URL;
+import java.io.InputStream;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -129,6 +129,10 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
    private void parseCfg(String config, String ruleName) throws Exception {
       File cfgFile = new File(config);
       FileInputStream is = new FileInputStream(cfgFile);
+      parseCfg(is, ruleName);
+   }
+
+   private void parseCfg(InputStream is, String ruleName) throws Exception {
       try {
          InputSource in = new InputSource(is);
          in.setSystemId(configurationfile);
@@ -143,9 +147,9 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
                   String ref = elem.getAttribute("ref");
                   int index = ref.indexOf(".xml");
                   String path = ref.substring(0, index + 4);
-                  URL resource = Thread.currentThread().getContextClassLoader().getResource(path);
+                  InputStream resource = this.getClass().getClassLoader().getResourceAsStream(path);
                   if (resource != null) {
-                     File file = new File(resource.toURI());
+
                      String aux = ref.substring(index + 4);
                      if (aux.startsWith("/")) {
                         aux = aux.substring(1);
@@ -154,7 +158,7 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
                      if (aux.length() > 1) {
                         ruleId = aux;
                      }
-                     parseCfg(file.getAbsolutePath(), ruleId);
+                     parseCfg(resource, ruleId);
                   }
 
                   NodeList children = elem.getChildNodes();
@@ -194,7 +198,7 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
          if (visitors == null) {
             visitors = new LinkedList<AbstractPMDRuleVisitor<?>>();
             for (String rule : rules) {
-               String beanName = "pmd:" + rule;
+               String beanName = "org.walkmod:walkmod-pmd-plugin:" + rule;
                if (ctx.getArchitectureConfig().getConfiguration().containsBean(beanName)) {
                   Object o = ctx.getBean(beanName, null);
                   if (o instanceof AbstractPMDRuleVisitor) {
