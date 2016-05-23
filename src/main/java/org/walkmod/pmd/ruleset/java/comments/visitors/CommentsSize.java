@@ -15,6 +15,7 @@
   along with Walkmod.  If not, see <http://www.gnu.org/licenses/>.*/
 package org.walkmod.pmd.ruleset.java.comments.visitors;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -69,19 +70,30 @@ public class CommentsSize<T> extends AbstractPMDRuleVisitor<T> {
             String finalContent = "";
 
             if (newLines.size() > maxLines) {
-               for (String line : newLines) {
-                  if (line.length() > 0 && !line.equals("*")) {
-                     finalContent += line + "\n";
+
+               Iterator<String> it = newLines.iterator();
+               while (it.hasNext()) {
+                  String line = it.next();
+                  if (line.length() > 0 && !line.trim().equals("*")) {
+                     finalContent += line;
+                     if (it.hasNext()) {
+                        finalContent += "\n";
+                     }
                   }
                }
+
                if (finalContent.length() == 0) {
                   n.remove();
                } else {
                   n.getParentNode().replaceChildNode(n, new JavadocComment(finalContent));
                }
             } else if (requiredRewrite) {
-               for (String line : newLines) {
-                  finalContent += line + "\n";
+               Iterator<String> it = newLines.iterator();
+               while (it.hasNext()) {
+                  finalContent += it.next();
+                  if (it.hasNext()) {
+                     finalContent += "\n";
+                  }
                }
                n.getParentNode().replaceChildNode(n, new JavadocComment(finalContent));
             }
