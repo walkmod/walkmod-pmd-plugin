@@ -17,9 +17,9 @@ public class DontCallThreadRunTest extends SemanticTest {
    public void test() throws Exception {
 
       CompilationUnit cu = compile("public class Foo { public void bar(Thread thread){ thread.run(); } }");
-      DontCallThreadRun<?> visitor = new DontCallThreadRun<Object>();
+      DontCallThreadRun visitor = new DontCallThreadRun();
 
-      visitor.visit(cu, null);
+      visitor.visit(cu, cu);
 
       MethodDeclaration md = (MethodDeclaration) cu.getTypes().get(0).getMembers().get(0);
       List<Statement> stmts = md.getBody().getStmts();

@@ -20,8 +20,8 @@ public class BigIntegerInstantiationTest extends SemanticTest {
    public void testBigInteger() throws Exception {
       CompilationUnit cu = compile(
             "import java.math.BigInteger; public class Foo{ public void bar() { BigInteger bi = new BigInteger(\"1\");} }");
-      BigIntegerInstantiation<?> bii = new BigIntegerInstantiation<Object>();
-      bii.visit(cu, null);
+      BigIntegerInstantiation bii = new BigIntegerInstantiation();
+      bii.visit(cu, cu);
       
       List<BodyDeclaration> members = cu.getTypes().get(0).getMembers();
       MethodDeclaration md = (MethodDeclaration) members.get(0);
@@ -41,8 +41,8 @@ public class BigIntegerInstantiationTest extends SemanticTest {
    public void testBigDecimal() throws Exception {
       CompilationUnit cu = compile(
             "import java.math.BigDecimal; public class Foo{ public void bar() { BigDecimal bi = new BigDecimal(10);} }");
-      BigIntegerInstantiation<?> bii = new BigIntegerInstantiation<Object>();
-      bii.visit(cu, null);
+      BigIntegerInstantiation bii = new BigIntegerInstantiation();
+      bii.visit(cu, cu);
       
       List<BodyDeclaration> members = cu.getTypes().get(0).getMembers();
       MethodDeclaration md = (MethodDeclaration) members.get(0);

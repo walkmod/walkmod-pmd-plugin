@@ -19,16 +19,18 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import org.walkmod.javalang.ast.MethodSymbolData;
+import org.walkmod.javalang.ast.Node;
 import org.walkmod.javalang.ast.expr.Expression;
 import org.walkmod.javalang.ast.expr.MethodCallExpr;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
-import org.walkmod.pmd.visitors.AbstractPMDRuleVisitor;
+import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
 @RequiresSemanticAnalysis
-public class DontCallThreadRun<T> extends AbstractPMDRuleVisitor<T> {
+public class DontCallThreadRun extends PMDRuleVisitor {
 
    @Override
-   public void visit(MethodCallExpr n, T ctx) {
+   public void visit(MethodCallExpr n, Node ctx) {
+       super.visit(n, ctx);
       if (n.getName().equals("run")) {
 
          List<Expression> args = n.getArgs();
@@ -37,12 +39,12 @@ public class DontCallThreadRun<T> extends AbstractPMDRuleVisitor<T> {
             if (msd != null) {
                Method m = msd.getMethod();
                if (Thread.class.isAssignableFrom(m.getDeclaringClass())) {
-                  n.setName("start");
+                  ((MethodCallExpr)ctx).setName("start");
                }
             }
          }
       }
-      super.visit(n, ctx);
+     
    }
 
 }

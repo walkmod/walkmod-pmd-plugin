@@ -14,7 +14,7 @@ public class ExtendsObjectTest extends SemanticTest{
    @Test
    public void test() throws Exception{
       CompilationUnit cu = compile(FileUtils.readFileToString(new File("src/test/resources/examples/extendsObject.txt")));
-      ExtendsObject<?> visitor = new ExtendsObject<Object>();
+      ExtendsObject visitor = new ExtendsObject();
       visitor.visit(cu, null);
       ClassOrInterfaceDeclaration coid = (ClassOrInterfaceDeclaration)cu.getTypes().get(0);
       Assert.assertNull(coid.getExtends());

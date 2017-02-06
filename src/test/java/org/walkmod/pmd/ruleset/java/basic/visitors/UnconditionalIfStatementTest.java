@@ -16,7 +16,7 @@ public class UnconditionalIfStatementTest {
    @Test
    public void testExample() throws Exception{
       CompilationUnit cu = ASTManager.parse(new File("src/test/resources/examples/unconditionalIfStatement.txt"));
-      UnconditionalIfStatement<?> visitor = new UnconditionalIfStatement<Object>();
+      UnconditionalIfStatement visitor = new UnconditionalIfStatement();
       visitor.visit(cu, null);
       MethodDeclaration md = (MethodDeclaration)cu.getTypes().get(0).getMembers().get(0);
       BlockStmt block = md.getBody();

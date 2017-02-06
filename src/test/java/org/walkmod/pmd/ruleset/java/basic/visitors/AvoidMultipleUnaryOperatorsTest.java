@@ -15,9 +15,9 @@ public class AvoidMultipleUnaryOperatorsTest {
    @Test
    public void test() throws Exception {
       CompilationUnit cu = ASTManager.parse("public class Foo{ public void bar() { boolean x = !!!!! true; } }");
-      AvoidMultipleUnaryOperators<?> visitor = new AvoidMultipleUnaryOperators<Object>();
+      AvoidMultipleUnaryOperators visitor = new AvoidMultipleUnaryOperators();
 
-      visitor.visit(cu, null);
+      visitor.visit(cu, cu);
 
       MethodDeclaration md = (MethodDeclaration) cu.getTypes().get(0).getMembers().get(0);
 

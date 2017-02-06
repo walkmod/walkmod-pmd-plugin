@@ -15,30 +15,37 @@
   along with Walkmod.  If not, see <http://www.gnu.org/licenses/>.*/
 package org.walkmod.pmd.ruleset.java.basic.visitors;
 
+import org.walkmod.javalang.ast.Node;
 import org.walkmod.javalang.ast.expr.IntegerLiteralExpr;
-import org.walkmod.pmd.visitors.AbstractPMDRuleVisitor;
+import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
-public class AvoidUsingOctalValues<T> extends AbstractPMDRuleVisitor<T> {
+public class AvoidUsingOctalValues extends PMDRuleVisitor {
 
-   @Override
-   public void visit(IntegerLiteralExpr n, T ctx) {
+    @Override
+    public void visit(IntegerLiteralExpr n, Node ctx) {
+        super.visit(n, ctx);
+        IntegerLiteralExpr aux = (IntegerLiteralExpr) ctx;
+        String s = aux.getValue();
 
-      String s = n.getValue();
+        if (s.startsWith("0") && s.length() > 1) {
+            char[] digits = s.toCharArray();
 
-      if (s.startsWith("0") && s.length() > 1) {
-         char[] digits = s.toCharArray();
+            int value = 0;
+            int power = 1;
+            boolean isOctal = true;
+            for (int i = digits.length - 1; i >= 0 && isOctal; i--) {
+                isOctal = Character.isDigit(digits[i]);
+                if (isOctal) {
+                    Integer digit = Integer.parseInt(Character.toString(digits[i]));
+                    isOctal = digit <= 7;
+                    value = value + digit * power;
+                    power = power * 8;
+                }
+            }
+            if (isOctal) {
+                aux.setValue(Integer.toString(value));
+            }
+        }
 
-         int value = 0;
-         int power = 1;
-         for (int i = digits.length - 1; i >= 0; i--) {
-            Integer digit = Integer.parseInt(Character.toString(digits[i]));
-            value = value + digit * power;
-            power = power * 8;
-         }
-
-         n.setValue(Integer.toString(value));
-      }
-
-      super.visit(n, null);
-   }
+    }
 }

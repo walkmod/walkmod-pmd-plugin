@@ -20,7 +20,7 @@ public class BooleanInstantiationTest extends SemanticTest {
    public void testValueOf() throws Exception {
       CompilationUnit cu = compile(
             FileUtils.readFileToString(new File("src/test/resources/examples/booleanInstantiation.txt")));
-      BooleanInstantiation<?> visitor = new BooleanInstantiation<Object>();
+      BooleanInstantiation visitor = new BooleanInstantiation();
       visitor.visit(cu, null);
       MethodDeclaration md = (MethodDeclaration) cu.getTypes().get(0).getMembers().get(0);
       BlockStmt block = md.getBody();
@@ -35,7 +35,7 @@ public class BooleanInstantiationTest extends SemanticTest {
    public void testConstructor() throws Exception {
       CompilationUnit cu = compile(
             FileUtils.readFileToString(new File("src/test/resources/examples/booleanInstantiation2.txt")));
-      BooleanInstantiation<?> visitor = new BooleanInstantiation<Object>();
+      BooleanInstantiation visitor = new BooleanInstantiation();
       visitor.visit(cu, null);
       MethodDeclaration md = (MethodDeclaration) cu.getTypes().get(0).getMembers().get(0);
       BlockStmt block = md.getBody();

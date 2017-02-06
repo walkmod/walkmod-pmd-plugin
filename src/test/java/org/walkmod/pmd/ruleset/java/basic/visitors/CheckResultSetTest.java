@@ -16,8 +16,8 @@ public class CheckResultSetTest extends SemanticTest{
    @Test
    public void testParams() throws Exception{
       CompilationUnit cu = compile("import java.sql.ResultSet; public class Foo{ public void bar(ResultSet rs) throws Exception{ rs.next();  String firstName = rs.getString(1); } }");
-      CheckResultSet<?> visitor = new CheckResultSet<Object>();
-      visitor.visit(cu, null);
+      CheckResultSet visitor = new CheckResultSet();
+      visitor.visit(cu, cu);
       
       List<BodyDeclaration> members = cu.getTypes().get(0).getMembers();
       MethodDeclaration md = (MethodDeclaration)members.get(0);
@@ -30,8 +30,8 @@ public class CheckResultSetTest extends SemanticTest{
    @Test
    public void testVars() throws Exception{
       CompilationUnit cu = compile("import java.sql.ResultSet; public class Foo{ ResultSet aux; public void bar() throws Exception{ ResultSet rs = aux; rs.next();  String firstName = rs.getString(1); } }");
-      CheckResultSet<?> visitor = new CheckResultSet<Object>();
-      visitor.visit(cu, null);
+      CheckResultSet visitor = new CheckResultSet();
+      visitor.visit(cu, cu);
       
       List<BodyDeclaration> members = cu.getTypes().get(0).getMembers();
       MethodDeclaration md = (MethodDeclaration)members.get(1);

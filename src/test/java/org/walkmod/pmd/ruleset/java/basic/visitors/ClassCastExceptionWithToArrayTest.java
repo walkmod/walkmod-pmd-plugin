@@ -22,8 +22,8 @@ public class ClassCastExceptionWithToArrayTest extends SemanticTest{
    @Test
    public void test() throws Exception{
       CompilationUnit cu = compile(FileUtils.readFileToString(new File("src/test/resources/examples/classCastExceptionWithToArray.txt")));
-      ClassCastExceptionWithToArray<?> visitor = new ClassCastExceptionWithToArray<Object>();
-      visitor.visit(cu, null);
+      ClassCastExceptionWithToArray visitor = new ClassCastExceptionWithToArray();
+      visitor.visit(cu, cu);
       
       MethodDeclaration md = (MethodDeclaration)cu.getTypes().get(0).getMembers().get(0);
       

@@ -16,7 +16,7 @@ public class ReturnFromFinallyBlockTest {
    @Test
    public void testExample() throws Exception{
       CompilationUnit cu = ASTManager.parse(new File("src/test/resources/examples/returnFromFinallyBlock.txt"));
-      ReturnFromFinallyBlock<?> visitor = new ReturnFromFinallyBlock<Object>();
+      ReturnFromFinallyBlock visitor = new ReturnFromFinallyBlock();
       visitor.visit(cu, null);
       MethodDeclaration md = (MethodDeclaration)cu.getTypes().get(0).getMembers().get(0);
       BlockStmt block = md.getBody();

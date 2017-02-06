@@ -16,8 +16,8 @@ public class CollapsibleIfStatementsTest {
    @Test
    public void test() throws Exception {
       CompilationUnit cu = ASTManager.parse(new File("src/test/resources/examples/collapsibleIfStatements.txt"));
-      CollapsibleIfStatements<?> visitor = new CollapsibleIfStatements<Object>();
-      visitor.visit(cu, null);
+      CollapsibleIfStatements visitor = new CollapsibleIfStatements();
+      visitor.visit(cu, cu);
       MethodDeclaration md = (MethodDeclaration) cu.getTypes().get(0).getMembers().get(0);
       BlockStmt block = md.getBody();
       IfStmt ifStmt = (IfStmt) block.getStmts().get(0);

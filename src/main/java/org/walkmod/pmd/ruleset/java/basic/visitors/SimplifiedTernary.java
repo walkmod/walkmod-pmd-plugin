@@ -15,6 +15,7 @@
   along with Walkmod.  If not, see <http://www.gnu.org/licenses/>.*/
 package org.walkmod.pmd.ruleset.java.basic.visitors;
 
+import org.walkmod.javalang.ast.Node;
 import org.walkmod.javalang.ast.SymbolData;
 import org.walkmod.javalang.ast.expr.BinaryExpr;
 import org.walkmod.javalang.ast.expr.BooleanLiteralExpr;
@@ -22,51 +23,51 @@ import org.walkmod.javalang.ast.expr.ConditionalExpr;
 import org.walkmod.javalang.ast.expr.Expression;
 import org.walkmod.javalang.ast.expr.UnaryExpr;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
-import org.walkmod.pmd.visitors.AbstractPMDRuleVisitor;
+import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
 @RequiresSemanticAnalysis
-public class SimplifiedTernary<T> extends AbstractPMDRuleVisitor<T> {
+public class SimplifiedTernary extends PMDRuleVisitor {
 
-   @Override
-   public void visit(ConditionalExpr n, T ctx) {
-      Expression thenExpr = n.getThenExpr();
-      Expression elseExpr = n.getElseExpr();
-      if (thenExpr != null && elseExpr != null) {
-         SymbolData sdThen = thenExpr.getSymbolData();
-         if (sdThen != null) {
-            if (sdThen.getClazz().isAssignableFrom(boolean.class)) {
-               if (thenExpr instanceof BooleanLiteralExpr) {
-                  BooleanLiteralExpr literal = (BooleanLiteralExpr) thenExpr;
-                  if (literal.getValue()) {
-                     //condition || foo  when the literalBoolean is true
-                     n.getParentNode().replaceChildNode(n,
-                           new BinaryExpr(n.getCondition(), n.getElseExpr(), BinaryExpr.Operator.or));
-                  } else {
-                     //!condition && foo when the literalBoolean is false
-                     n.getParentNode().replaceChildNode(
-                           n,
-                           new BinaryExpr(new UnaryExpr(n.getCondition(), UnaryExpr.Operator.not), n.getElseExpr(),
-                                 BinaryExpr.Operator.and));
-                  }
-               } else if (elseExpr instanceof BooleanLiteralExpr) {
-                  BooleanLiteralExpr literal = (BooleanLiteralExpr) elseExpr;
+    @Override
+    public void visit(ConditionalExpr n, Node ctx) {
+        super.visit(n, ctx);
+        ConditionalExpr aux = (ConditionalExpr) ctx;
+        Expression thenExpr = n.getThenExpr();
+        Expression elseExpr = n.getElseExpr();
+        if (thenExpr != null && elseExpr != null) {
+            SymbolData sdThen = thenExpr.getSymbolData();
+            if (sdThen != null) {
+                if (sdThen.getClazz().isAssignableFrom(boolean.class)) {
+                    if (thenExpr instanceof BooleanLiteralExpr) {
+                        BooleanLiteralExpr literal = (BooleanLiteralExpr) thenExpr;
+                        if (literal.getValue()) {
+                            //condition || foo  when the literalBoolean is true
+                            aux.getParentNode().replaceChildNode(aux,
+                                    new BinaryExpr(aux.getCondition(), aux.getElseExpr(), BinaryExpr.Operator.or));
+                        } else {
+                            //!condition && foo when the literalBoolean is false
+                            aux.getParentNode().replaceChildNode(aux,
+                                    new BinaryExpr(new UnaryExpr(aux.getCondition(), UnaryExpr.Operator.not),
+                                            aux.getElseExpr(), BinaryExpr.Operator.and));
+                        }
+                    } else if (elseExpr instanceof BooleanLiteralExpr) {
+                        BooleanLiteralExpr literal = (BooleanLiteralExpr) elseExpr;
 
-                  if (literal.getValue()) {
-                     //!condition || foo when the literalBoolean is true
-                     n.getParentNode().replaceChildNode(
-                           n,
-                           new BinaryExpr(new UnaryExpr(n.getCondition(), UnaryExpr.Operator.not), n.getElseExpr(),
-                                 BinaryExpr.Operator.or));
-                  } else {
-                     //condition && foo  when the literalBoolean is false
-                     n.getParentNode().replaceChildNode(n,
-                           new BinaryExpr(n.getCondition(), n.getElseExpr(), BinaryExpr.Operator.and));
-                  }
+                        if (literal.getValue()) {
+                            //!condition || foo when the literalBoolean is true
+                            aux.getParentNode().replaceChildNode(aux,
+                                    new BinaryExpr(new UnaryExpr(aux.getCondition(), UnaryExpr.Operator.not),
+                                            aux.getElseExpr(), BinaryExpr.Operator.or));
+                        } else {
+                            //condition && foo  when the literalBoolean is false
+                            aux.getParentNode().replaceChildNode(aux,
+                                    new BinaryExpr(aux.getCondition(), aux.getElseExpr(), BinaryExpr.Operator.and));
+                        }
 
-               }
+                    }
+                }
             }
-         }
-      }
-      super.visit(n, ctx);
-   }
+        }
+
+    }
 }

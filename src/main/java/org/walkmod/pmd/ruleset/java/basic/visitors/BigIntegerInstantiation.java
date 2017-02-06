@@ -30,10 +30,11 @@ import org.walkmod.javalang.ast.expr.NameExpr;
 import org.walkmod.javalang.ast.expr.ObjectCreationExpr;
 import org.walkmod.javalang.ast.expr.StringLiteralExpr;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
-import org.walkmod.pmd.visitors.AbstractPMDRuleVisitor;
+import org.walkmod.javalang.visitors.VoidVisitorAdapter;
+import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
 @RequiresSemanticAnalysis
-public class BigIntegerInstantiation<T> extends AbstractPMDRuleVisitor<T> {
+public class BigIntegerInstantiation extends PMDRuleVisitor {
 
    private Map<String, String> integerConstants;
 
@@ -51,11 +52,14 @@ public class BigIntegerInstantiation<T> extends AbstractPMDRuleVisitor<T> {
    }
 
    @Override
-   public void visit(ObjectCreationExpr oce, T ctx) {
+   public void visit(ObjectCreationExpr oce, Node ctx) {
+       
+       ObjectCreationExpr auxNode = (ObjectCreationExpr)ctx;
+      
       ConstructorSymbolData sd = oce.getSymbolData();
       if (sd != null) {
-         Class<?> clazz = sd.getClazz();
-         String className = clazz.getName();
+      
+         String className = sd.getName();
          Map<String, String> mapping = null;
          if (className.equals(BigInteger.class.getName())) {
             mapping = integerConstants;
@@ -65,7 +69,7 @@ public class BigIntegerInstantiation<T> extends AbstractPMDRuleVisitor<T> {
 
          if (mapping != null) {
 
-            List<Expression> args = oce.getArgs();
+            List<Expression> args = auxNode.getArgs();
             if (args != null && args.size() == 1) {
 
                Expression arg = args.get(0);
@@ -77,8 +81,8 @@ public class BigIntegerInstantiation<T> extends AbstractPMDRuleVisitor<T> {
                      if (mapping.containsKey(value)) {
                         Node parent = oce.getParentNode();
                         if (parent != null) {
-                           NameExpr nexpr = (NameExpr) ASTManager.parse(NameExpr.class, oce.getType().toString());
-                           parent.replaceChildNode(oce, new FieldAccessExpr(nexpr, mapping.get(value)));
+                           NameExpr nexpr = (NameExpr) ASTManager.parse(NameExpr.class, auxNode.getType().toString());
+                           parent.replaceChildNode(auxNode, new FieldAccessExpr(nexpr, mapping.get(value)));
                         }
                      }
                   } catch (Exception e) {

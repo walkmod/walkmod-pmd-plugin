@@ -22,9 +22,9 @@ public class AvoidDecimalLiteralsInBigDecimalConstructorTest extends SemanticTes
       CompilationUnit cu = compile(FileUtils
             .readFileToString(new File("src/test/resources/examples/avoidDecimalLiteralsInBigDecimalConstructor.txt")));
 
-      AvoidDecimalLiteralsInBigDecimalConstructor<?> visitor = new AvoidDecimalLiteralsInBigDecimalConstructor<Object>();
+      AvoidDecimalLiteralsInBigDecimalConstructor visitor = new AvoidDecimalLiteralsInBigDecimalConstructor();
 
-      visitor.visit(cu, null);
+      visitor.visit(cu, cu);
 
       MethodDeclaration md = (MethodDeclaration) cu.getTypes().get(0).getMembers().get(0);
 

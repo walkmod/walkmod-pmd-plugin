@@ -33,57 +33,64 @@ import org.walkmod.javalang.ast.expr.QualifiedNameExpr;
 import org.walkmod.javalang.ast.type.ReferenceType;
 import org.walkmod.javalang.ast.type.Type;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
-import org.walkmod.pmd.visitors.AbstractPMDRuleVisitor;
+import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
 @RequiresSemanticAnalysis
-public class ClassCastExceptionWithToArray<A> extends AbstractPMDRuleVisitor<A> {
+public class ClassCastExceptionWithToArray extends PMDRuleVisitor {
 
-   @Override
-   public void visit(MethodCallExpr n, A ctx) {
-      String name = n.getName();
-      if (name.equals("toArray")) {
-         List<Expression> args = n.getArgs();
-         if (args == null || args.isEmpty()) {
-            Node parentNode = n.getParentNode();
-            if (parentNode != null) {
-               if (parentNode instanceof CastExpr) {
+    @Override
+    public void visit(MethodCallExpr n, Node ctx) {
+        super.visit(n, ctx);
 
-                  CastExpr cast = (CastExpr) parentNode;
+        MethodCallExpr aux = (MethodCallExpr) ctx;
 
-                  Type castedType = cast.getType();
-                  if (castedType instanceof ReferenceType) {
-                     Type arrayType = ((ReferenceType) castedType).getType();
-                     Expression scope = n.getScope();
+        String name = n.getName();
+        if (name.equals("toArray")) {
+            List<Expression> args = n.getArgs();
+            if (args == null || args.isEmpty()) {
 
-                     if (scope instanceof NameExpr) {
-                        if (!(scope instanceof QualifiedNameExpr)) {
+                Node parentNode = n.getParentNode();
 
-                           try {
-                              NameExpr scopeForSizeOp = (NameExpr) ASTManager.parse(NameExpr.class, scope.toString());
-                              MethodSymbolData msd = n.getSymbolData();
-                              if (msd != null) {
-                                 Method method = msd.getMethod();
-                                 if (method != null) {
-                                    Class<?> clazz = method.getDeclaringClass();
-                                    if (Collection.class.isAssignableFrom(clazz)) {
-                                       args = new LinkedList<Expression>();
-                                       List<Expression> dimensions = new LinkedList<Expression>();
-                                       dimensions.add(new MethodCallExpr(scopeForSizeOp, "size"));
-                                       args.add(new ArrayCreationExpr(arrayType, dimensions, 0));
-                                       n.setArgs(args);
+                if (parentNode != null) {
+                    if (parentNode instanceof CastExpr) {
+
+                        CastExpr cast = (CastExpr) parentNode;
+
+                        Type castedType = cast.getType();
+                        if (castedType instanceof ReferenceType) {
+                            Type arrayType = ((ReferenceType) castedType).getType();
+                            Expression scope = n.getScope();
+
+                            if (scope instanceof NameExpr) {
+                                if (!(scope instanceof QualifiedNameExpr)) {
+
+                                    try {
+                                        NameExpr scopeForSizeOp = (NameExpr) ASTManager.parse(NameExpr.class,
+                                                scope.toString());
+                                        MethodSymbolData msd = n.getSymbolData();
+                                        if (msd != null) {
+                                            Method method = msd.getMethod();
+                                            if (method != null) {
+                                                Class<?> clazz = method.getDeclaringClass();
+                                                if (Collection.class.isAssignableFrom(clazz)) {
+                                                    args = new LinkedList<Expression>();
+                                                    List<Expression> dimensions = new LinkedList<Expression>();
+                                                    dimensions.add(new MethodCallExpr(scopeForSizeOp, "size"));
+                                                    args.add(new ArrayCreationExpr(arrayType, dimensions, 0));
+                                                    aux.setArgs(args);
+                                                }
+                                            }
+                                        }
+                                    } catch (ParseException e) {
+                                        throw new RuntimeException(e);
                                     }
-                                 }
-                              }
-                           } catch (ParseException e) {
-                              throw new RuntimeException(e);
-                           }
+                                }
+                            }
                         }
-                     }
-                  }
-               }
+                    }
+                }
             }
-         }
-      }
-      super.visit(n, ctx);
-   }
+        }
+
+    }
 }

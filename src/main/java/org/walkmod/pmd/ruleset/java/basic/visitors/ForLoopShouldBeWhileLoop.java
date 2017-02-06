@@ -24,36 +24,38 @@ import org.walkmod.javalang.ast.stmt.BlockStmt;
 import org.walkmod.javalang.ast.stmt.ForStmt;
 import org.walkmod.javalang.ast.stmt.Statement;
 import org.walkmod.javalang.ast.stmt.WhileStmt;
-import org.walkmod.pmd.visitors.AbstractPMDRuleVisitor;
+import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
-public class ForLoopShouldBeWhileLoop<T> extends AbstractPMDRuleVisitor<T> {
+public class ForLoopShouldBeWhileLoop extends PMDRuleVisitor {
 
-   public void visit(ForStmt n, T ctx) {
-      List<Expression> initExprs = n.getInit();
-      List<Expression> updateExprs = n.getUpdate();
-      boolean emptyInit = initExprs == null || initExprs.isEmpty();
-      boolean emptyUpdate = updateExprs == null || updateExprs.isEmpty();
-      if (emptyInit && emptyUpdate) {
-         WhileStmt whileStmt = new WhileStmt(n.getCompare(), n.getBody());
-         Node parent = n.getParentNode();
-         if (parent instanceof BlockStmt) {
-            BlockStmt block = (BlockStmt) parent;
-            List<Statement> list = new LinkedList<Statement>(block.getStmts());
-            int max = list.size();
-            boolean found = false;
-            for (int i = 0; i < max && !found; i++) {
+    public void visit(ForStmt n, Node ctx) {
+        super.visit(n, ctx);
+        n = (ForStmt) ctx;
+        List<Expression> initExprs = n.getInit();
+        List<Expression> updateExprs = n.getUpdate();
+        boolean emptyInit = initExprs == null || initExprs.isEmpty();
+        boolean emptyUpdate = updateExprs == null || updateExprs.isEmpty();
+        if (emptyInit && emptyUpdate) {
+            WhileStmt whileStmt = new WhileStmt(n.getCompare(), n.getBody());
+            Node parent = n.getParentNode();
+            if (parent instanceof BlockStmt) {
+                BlockStmt block = (BlockStmt) parent;
+                List<Statement> list = new LinkedList<Statement>(block.getStmts());
+                int max = list.size();
+                boolean found = false;
+                for (int i = 0; i < max && !found; i++) {
 
-               Statement current = list.get(i);
-               if (current == n) {
-                  list.remove(i);
-                  list.add(i, whileStmt);
+                    Statement current = list.get(i);
+                    if (current == n) {
+                        list.remove(i);
+                        list.add(i, whileStmt);
 
-                  found = true;
-               }
+                        found = true;
+                    }
+                }
+                block.setStmts(list);
+
             }
-            block.setStmts(list);
-
-         }
-      }
-   }
+        }
+    }
 }

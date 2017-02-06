@@ -24,58 +24,61 @@ import org.walkmod.javalang.ast.expr.Expression;
 import org.walkmod.javalang.ast.stmt.BlockStmt;
 import org.walkmod.javalang.ast.stmt.IfStmt;
 import org.walkmod.javalang.ast.stmt.Statement;
-import org.walkmod.pmd.visitors.AbstractPMDRuleVisitor;
+import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
-public class CollapsibleIfStatements<A> extends AbstractPMDRuleVisitor<A> {
+public class CollapsibleIfStatements extends PMDRuleVisitor {
 
-   @Override
-   public void visit(IfStmt n, A ctx) {
-      Node parent = n.getParentNode();
+    @Override
+    public void visit(IfStmt n, Node node) {
+        super.visit(n, node);
+        n = (IfStmt) node;
 
-      if (parent != null) {
-         if (parent instanceof BlockStmt) {
-            parent = parent.getParentNode();
-         }
-         if (parent instanceof IfStmt) {
-            IfStmt parentIf = (IfStmt) parent;
+        Node parent = n.getParentNode();
 
-            Statement elseStmt = parentIf.getElseStmt();
-            if (elseStmt == null) {
-
-               Statement thisElseStmt = n.getElseStmt();
-               if (thisElseStmt == null) {
-
-                  Expression rightExpression = parentIf.getCondition();
-                  if (rightExpression instanceof BinaryExpr) {
-                     rightExpression = new EnclosedExpr(parentIf.getCondition());
-                  }
-
-                  Expression leftExpression = n.getCondition();
-                  if (leftExpression instanceof BinaryExpr) {
-                     leftExpression = new EnclosedExpr(n.getCondition());
-                  }
-
-                  BinaryExpr condition = new BinaryExpr(rightExpression, leftExpression, BinaryExpr.Operator.and);
-
-                  if (parentIf.getThenStmt() == n) {
-                     parentIf.setThenStmt(n.getThenStmt());
-                     parentIf.setCondition(condition);
-                  } else {
-                     Statement stmt = parentIf.getThenStmt();
-                     if (stmt instanceof BlockStmt) {
-                        BlockStmt block = (BlockStmt) stmt;
-                        List<Statement> stmts = block.getStmts();
-                        if (stmts.size() == 1) {
-                           parentIf.setThenStmt(n.getThenStmt());
-                           parentIf.setCondition(condition);
-                        }
-                     }
-                  }
-
-               }
+        if (parent != null) {
+            if (parent instanceof BlockStmt) {
+                parent = parent.getParentNode();
             }
-         }
-      }
-      super.visit(n, ctx);
-   }
+            if (parent instanceof IfStmt) {
+                IfStmt parentIf = (IfStmt) parent;
+
+                Statement elseStmt = parentIf.getElseStmt();
+                if (elseStmt == null) {
+
+                    Statement thisElseStmt = n.getElseStmt();
+                    if (thisElseStmt == null) {
+
+                        Expression rightExpression = parentIf.getCondition();
+                        if (rightExpression instanceof BinaryExpr) {
+                            rightExpression = new EnclosedExpr(parentIf.getCondition());
+                        }
+
+                        Expression leftExpression = n.getCondition();
+                        if (leftExpression instanceof BinaryExpr) {
+                            leftExpression = new EnclosedExpr(n.getCondition());
+                        }
+
+                        BinaryExpr condition = new BinaryExpr(rightExpression, leftExpression, BinaryExpr.Operator.and);
+
+                        if (parentIf.getThenStmt() == n) {
+                            parentIf.setThenStmt(n.getThenStmt());
+                            parentIf.setCondition(condition);
+                        } else {
+                            Statement stmt = parentIf.getThenStmt();
+                            if (stmt instanceof BlockStmt) {
+                                BlockStmt block = (BlockStmt) stmt;
+                                List<Statement> stmts = block.getStmts();
+                                if (stmts.size() == 1) {
+                                    parentIf.setThenStmt(n.getThenStmt());
+                                    parentIf.setCondition(condition);
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+
+    }
 }

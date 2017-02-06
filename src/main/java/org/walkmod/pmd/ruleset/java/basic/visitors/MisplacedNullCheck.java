@@ -28,10 +28,9 @@ import org.walkmod.javalang.ast.expr.NameExpr;
 import org.walkmod.javalang.ast.expr.NullLiteralExpr;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
 import org.walkmod.javalang.visitors.VoidVisitorAdapter;
-import org.walkmod.pmd.visitors.AbstractPMDRuleVisitor;
 
 @RequiresSemanticAnalysis
-public class MisplacedNullCheck<T> extends AbstractPMDRuleVisitor<T> {
+public class MisplacedNullCheck<T> extends VoidVisitorAdapter<T> {
 
    @Override
    public void visit(BinaryExpr n, T ctx) {

@@ -25,47 +25,49 @@ import org.walkmod.javalang.ast.expr.Expression;
 import org.walkmod.javalang.ast.stmt.BlockStmt;
 import org.walkmod.javalang.ast.stmt.IfStmt;
 import org.walkmod.javalang.ast.stmt.Statement;
-import org.walkmod.pmd.visitors.AbstractPMDRuleVisitor;
+import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
-public class UnconditionalIfStatement<T> extends AbstractPMDRuleVisitor<T> {
+public class UnconditionalIfStatement extends PMDRuleVisitor {
 
-   @Override
-   public void visit(IfStmt n, T ctx) {
-      Expression condition = n.getCondition();
-      if (condition instanceof BooleanLiteralExpr) {
-         BooleanLiteralExpr literal = (BooleanLiteralExpr) condition;
-         if (literal.getValue() == true) {
-            Node parent = n.getParentNode();
-            if (parent instanceof BlockStmt) {
-               BlockStmt block = (BlockStmt) parent;
-               List<Statement> stmts = block.getStmts();
-               List<Statement> newStmts = new LinkedList<Statement>(stmts);
-               Iterator<Statement> it = newStmts.iterator();
-               int i = 0;
-               int pos = -1;
-               while (it.hasNext() && pos == -1) {
-                  Statement next = it.next();
-                  if (next == n) {
-                     it.remove();
-                     pos = i;
-                  }
-                  i++;
-               }
-               if (pos != -1) {
-                  Statement stmt = n.getThenStmt();
-                  if (!(stmt instanceof BlockStmt)) {
-                     newStmts.add(pos, n.getThenStmt());
-                  } else {
-                     BlockStmt blockThen = (BlockStmt) stmt;
-                     List<Statement> stmtsList = blockThen.getStmts();
-                     newStmts.addAll(pos, stmtsList);
-                  }
-               }
-               block.setStmts(newStmts);
+    @Override
+    public void visit(IfStmt n, Node ctx) {
+        super.visit(n, ctx);
+        Expression condition = n.getCondition();
+        n = (IfStmt) ctx;
+        if (condition instanceof BooleanLiteralExpr) {
+            BooleanLiteralExpr literal = (BooleanLiteralExpr) condition;
+            if (literal.getValue() == true) {
+                Node parent = n.getParentNode();
+                if (parent instanceof BlockStmt) {
+                    BlockStmt block = (BlockStmt) parent;
+                    List<Statement> stmts = block.getStmts();
+                    List<Statement> newStmts = new LinkedList<Statement>(stmts);
+                    Iterator<Statement> it = newStmts.iterator();
+                    int i = 0;
+                    int pos = -1;
+                    while (it.hasNext() && pos == -1) {
+                        Statement next = it.next();
+                        if (next == n) {
+                            it.remove();
+                            pos = i;
+                        }
+                        i++;
+                    }
+                    if (pos != -1) {
+                        Statement stmt = n.getThenStmt();
+                        if (!(stmt instanceof BlockStmt)) {
+                            newStmts.add(pos, n.getThenStmt());
+                        } else {
+                            BlockStmt blockThen = (BlockStmt) stmt;
+                            List<Statement> stmtsList = blockThen.getStmts();
+                            newStmts.addAll(pos, stmtsList);
+                        }
+                    }
+                    block.setStmts(newStmts);
+                }
             }
-         }
-      }
-      super.visit(n, ctx);
-   }
+        }
+
+    }
 
 }

@@ -15,8 +15,8 @@ public class SimplifiedTernaryTest extends SemanticTest{
    @Test
    public void test() throws Exception{
       CompilationUnit cu = compile("public class Foo{ public boolean something(){ return false;}  public boolean bar(boolean condition) { return condition ? true : something(); } }");
-      SimplifiedTernary<?> st = new SimplifiedTernary<Object>();
-      st.visit(cu, null);
+      SimplifiedTernary st = new SimplifiedTernary();
+      st.visit(cu, cu);
       MethodDeclaration md = (MethodDeclaration)cu.getTypes().get(0).getMembers().get(1);
       
       BlockStmt block = md.getBody();

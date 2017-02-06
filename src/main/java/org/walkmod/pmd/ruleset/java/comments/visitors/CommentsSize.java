@@ -20,9 +20,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.walkmod.javalang.ast.body.JavadocComment;
-import org.walkmod.pmd.visitors.AbstractPMDRuleVisitor;
+import org.walkmod.javalang.visitors.VoidVisitorAdapter;
 
-public class CommentsSize<T> extends AbstractPMDRuleVisitor<T> {
+public class CommentsSize<T> extends VoidVisitorAdapter<T> {
 
    private String violationSuppressRegex; //Suppress violations with messages matching a regular expression
 

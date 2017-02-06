@@ -35,98 +35,112 @@ import org.walkmod.javalang.ast.stmt.IfStmt;
 import org.walkmod.javalang.ast.stmt.Statement;
 import org.walkmod.javalang.ast.type.Type;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
-import org.walkmod.pmd.visitors.AbstractPMDRuleVisitor;
+import org.walkmod.javalang.visitors.VoidVisitorAdapter;
+import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
 @RequiresSemanticAnalysis
-public class CheckResultSet<T> extends AbstractPMDRuleVisitor<T> {
+public class CheckResultSet extends PMDRuleVisitor {
 
-   @Override
-   public void visit(MethodDeclaration md, T ctx) {
-      List<Parameter> params = md.getParameters();
-      if (params != null) {
-         Iterator<Parameter> it = params.iterator();
-         while (it.hasNext()) {
-            Parameter current = it.next();
-            Type type = current.getType();
-            SymbolData sd = type.getSymbolData();
+    @Override
+    public void visit(MethodDeclaration md, Node node) {
+        super.visit(md, node);
+        MethodDeclaration aux = (MethodDeclaration) node;
 
-            if (sd != null) {
-               if (sd.getClazz().isAssignableFrom(ResultSet.class)) {
-                  updateStmts(current);
-               }
+        List<Parameter> params = md.getParameters();
+        List<Parameter> auxParams = aux.getParameters();
+        if (params != null) {
+
+            Iterator<Parameter> it = params.iterator();
+            Iterator<Parameter> it2 = auxParams.iterator();
+
+            while (it.hasNext()) {
+                Parameter current = it.next();
+                Parameter currentAux = it2.next();
+
+                Type type = current.getType();
+                SymbolData sd = type.getSymbolData();
+
+                if (sd != null) {
+                    if (sd.getClazz().isAssignableFrom(ResultSet.class)) {
+                        updateStmts(currentAux);
+                    }
+                }
             }
-         }
-      }
-      super.visit(md, ctx);
-   }
+        }
 
-   private void updateStmts(SymbolDefinition symbolDef) {
-      List<SymbolReference> usages = symbolDef.getUsages();
-      if (usages != null) {
-         Iterator<SymbolReference> itUsages = usages.iterator();
-         boolean updated = false;
-         while (itUsages.hasNext() && !updated) {
-            SymbolReference usage = itUsages.next();
-            Node parent = ((Node) usage).getParentNode();
-            if (parent instanceof MethodCallExpr) {
-               MethodCallExpr mce = (MethodCallExpr) parent;
-               if (mce.getName().equals("next")) {
-                  Node grandParent = mce.getParentNode();
-                  if (grandParent instanceof ExpressionStmt) {
-                     Node grandGrandParent = grandParent.getParentNode();
-                     if (grandGrandParent instanceof BlockStmt) {
-                        if (itUsages.hasNext()) {
-                           BlockStmt block = (BlockStmt) grandGrandParent;
-                           List<Statement> stmts = new LinkedList<Statement>(block.getStmts());
-                           List<Statement> pendingBock = new LinkedList<Statement>();
-                           Iterator<Statement> itStmt = stmts.iterator();
-                           boolean removed = false;
-                           while (!removed && itStmt.hasNext()) {
-                              Statement currentStmt = itStmt.next();
-                              if (currentStmt == grandParent) {
-                                 if (itStmt.hasNext()) {
-                                    itStmt.remove();
-                                    while (itStmt.hasNext()) {
-                                       pendingBock.add(itStmt.next());
-                                       itStmt.remove();
+    }
+
+    private void updateStmts(SymbolDefinition symbolDef) {
+        List<SymbolReference> usages = symbolDef.getUsages();
+        if (usages != null) {
+            Iterator<SymbolReference> itUsages = usages.iterator();
+            boolean updated = false;
+            while (itUsages.hasNext() && !updated) {
+                SymbolReference usage = itUsages.next();
+                Node parent = ((Node) usage).getParentNode();
+                if (parent instanceof MethodCallExpr) {
+                    MethodCallExpr mce = (MethodCallExpr) parent;
+                    if (mce.getName().equals("next")) {
+                        Node grandParent = mce.getParentNode();
+                        if (grandParent instanceof ExpressionStmt) {
+                            Node grandGrandParent = grandParent.getParentNode();
+                            if (grandGrandParent instanceof BlockStmt) {
+                                if (itUsages.hasNext()) {
+                                    BlockStmt block = (BlockStmt) grandGrandParent;
+                                    List<Statement> stmts = new LinkedList<Statement>(block.getStmts());
+                                    List<Statement> pendingBock = new LinkedList<Statement>();
+                                    Iterator<Statement> itStmt = stmts.iterator();
+                                    boolean removed = false;
+                                    while (!removed && itStmt.hasNext()) {
+                                        Statement currentStmt = itStmt.next();
+                                        if (currentStmt == grandParent) {
+                                            if (itStmt.hasNext()) {
+                                                itStmt.remove();
+                                                while (itStmt.hasNext()) {
+                                                    pendingBock.add(itStmt.next());
+                                                    itStmt.remove();
+                                                }
+                                                removed = true;
+                                            }
+                                        }
                                     }
-                                    removed = true;
-                                 }
-                              }
-                           }
-                           if (removed) {
-                              stmts.add(new IfStmt(mce, new BlockStmt(pendingBock), null));
-                           }
-                           block.setStmts(stmts);
+                                    if (removed) {
+                                        stmts.add(new IfStmt(mce, new BlockStmt(pendingBock), null));
+                                    }
+                                    block.setStmts(stmts);
+                                }
+                            }
                         }
-                     }
-                  }
-               }
+                    }
+                }
             }
-         }
-      }
-   }
+        }
+    }
 
-   @Override
-   public void visit(VariableDeclarationExpr vd, T ctx) {
-      Type type = vd.getType();
-      SymbolData sd = type.getSymbolData();
+    @Override
+    public void visit(VariableDeclarationExpr vd, Node ctx) {
+        super.visit(vd, ctx);
 
-      if (sd != null) {
-         if (sd.getClazz().isAssignableFrom(ResultSet.class)) {
-            List<VariableDeclarator> vars = vd.getVars();
+        VariableDeclarationExpr aux = (VariableDeclarationExpr) ctx;
+        Type type = vd.getType();
+        SymbolData sd = type.getSymbolData();
 
-            if (vars != null) {
-               Iterator<VariableDeclarator> it = vars.iterator();
+        if (sd != null) {
+            if (sd.getClazz().isAssignableFrom(ResultSet.class)) {
+                List<VariableDeclarator> vars = vd.getVars();
+                List<VariableDeclarator> vars2 = aux.getVars();
 
-               while (it.hasNext()) {
-                  VariableDeclarator currentVar = it.next();
+                if (vars != null) {
+                    Iterator<VariableDeclarator> it = vars2.iterator();
 
-                  updateStmts(currentVar);
-               }
+                    while (it.hasNext()) {
+                        VariableDeclarator currentVar = it.next();
+
+                        updateStmts(currentVar);
+                    }
+                }
             }
-         }
-      }
-      super.visit(vd, ctx);
-   }
+        }
+
+    }
 }

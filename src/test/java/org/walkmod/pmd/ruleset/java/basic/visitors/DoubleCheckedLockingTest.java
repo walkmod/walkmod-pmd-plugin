@@ -18,8 +18,8 @@ public class DoubleCheckedLockingTest {
    @Test
    public void testMissingEquals() throws Exception {
       CompilationUnit cu = ASTManager.parse(new File("src/test/resources/examples/doubleCheckedLocking.txt"));
-      DoubleCheckedLocking<?> visitor = new DoubleCheckedLocking<Object>();
-      visitor.visit(cu, null);
+      DoubleCheckedLocking visitor = new DoubleCheckedLocking();
+      visitor.visit(cu, cu);
       MethodDeclaration md = (MethodDeclaration)cu.getTypes().get(0).getMembers().get(1);
       BlockStmt block = md.getBody();
       IfStmt ifStmt = (IfStmt)block.getStmts().get(0);
