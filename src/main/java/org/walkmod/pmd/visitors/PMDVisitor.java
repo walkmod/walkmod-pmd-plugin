@@ -45,7 +45,7 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
     private boolean splitExecution = false;
 
     private void parseCfg(String config) throws Exception {
-
+        
         RuleSetFactory factory = new RuleSetFactory();
         rules = factory.createRuleSet(config);
 
@@ -108,7 +108,10 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
 
     public void setConfigurationFile(String configurationFile) throws Exception {
         this.configurationfile = configurationFile;
+        ClassLoader cloader = Thread.currentThread().getContextClassLoader();
+        Thread.currentThread().setContextClassLoader(this.getClass().getClassLoader());
         parseCfg(configurationfile);
+        Thread.currentThread().setContextClassLoader(cloader);
     }
 
     public void setVisitors(List<PMDRuleVisitor> list) {
