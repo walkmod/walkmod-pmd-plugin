@@ -43,9 +43,11 @@ public class AvoidUsingOctalValues extends PMDRuleVisitor {
                 }
             }
             if (isOctal) {
-                aux.setValue(Integer.toString(value));
+                aux.getParentNode().replaceChildNode(aux, new IntegerLiteralExpr(Integer.toString(value)));
+
             }
         }
 
     }
+
 }

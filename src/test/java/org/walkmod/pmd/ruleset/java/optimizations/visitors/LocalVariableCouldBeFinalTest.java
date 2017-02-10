@@ -1,4 +1,4 @@
-package org.walkmod.pmd.ruleset.java.optimization.visitors;
+package org.walkmod.pmd.ruleset.java.optimizations.visitors;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -8,7 +8,7 @@ import org.walkmod.javalang.ast.body.ModifierSet;
 import org.walkmod.javalang.ast.expr.VariableDeclarationExpr;
 import org.walkmod.javalang.ast.stmt.ExpressionStmt;
 import org.walkmod.javalang.test.SemanticTest;
-import org.walkmod.pmd.ruleset.java.optimization.visitors.LocalVariableCouldBeFinal;
+import org.walkmod.pmd.ruleset.java.optimizations.visitors.LocalVariableCouldBeFinal;
 
 public class LocalVariableCouldBeFinalTest extends SemanticTest {
 

@@ -1,4 +1,4 @@
-package org.walkmod.pmd.ruleset.java.optimization.visitors;
+package org.walkmod.pmd.ruleset.java.optimizations.visitors;
 
 import java.lang.reflect.Modifier;
 import java.util.Iterator;
@@ -51,7 +51,8 @@ public class MethodArgumentCouldBeFinal extends PMDRuleVisitor {
             parent = parent.getParentNode();
         }
         if (parent instanceof AssignExpr) {
-            return true;
+            AssignExpr assign = (AssignExpr) parent;
+            return assign.getTarget() == reference;
         }
         if (parent instanceof UnaryExpr) {
             UnaryExpr ue = (UnaryExpr) parent;

@@ -40,15 +40,26 @@ public class SimplifiedTernary extends PMDRuleVisitor {
                 if (sdThen.getClazz().isAssignableFrom(boolean.class)) {
                     if (thenExpr instanceof BooleanLiteralExpr) {
                         BooleanLiteralExpr literal = (BooleanLiteralExpr) thenExpr;
+
                         if (literal.getValue()) {
                             //condition || foo  when the literalBoolean is true
-                            aux.getParentNode().replaceChildNode(aux,
-                                    new BinaryExpr(aux.getCondition(), aux.getElseExpr(), BinaryExpr.Operator.or));
+                            Node newNode = null;
+                            if (elseExpr instanceof BooleanLiteralExpr) {
+                                newNode = aux.getCondition();
+                            } else {
+                                newNode = new BinaryExpr(aux.getCondition(), aux.getElseExpr(), BinaryExpr.Operator.or);
+                            }
+                            aux.getParentNode().replaceChildNode(aux, newNode);
                         } else {
                             //!condition && foo when the literalBoolean is false
-                            aux.getParentNode().replaceChildNode(aux,
-                                    new BinaryExpr(new UnaryExpr(aux.getCondition(), UnaryExpr.Operator.not),
-                                            aux.getElseExpr(), BinaryExpr.Operator.and));
+                            Node newNode = null;
+                            if (elseExpr instanceof BooleanLiteralExpr) {
+                                newNode = aux.getCondition();
+                            } else {
+                                newNode = new BinaryExpr(new UnaryExpr(aux.getCondition(), UnaryExpr.Operator.not),
+                                        aux.getElseExpr(), BinaryExpr.Operator.and);
+                            }
+                            aux.getParentNode().replaceChildNode(aux, newNode);
                         }
                     } else if (elseExpr instanceof BooleanLiteralExpr) {
                         BooleanLiteralExpr literal = (BooleanLiteralExpr) elseExpr;

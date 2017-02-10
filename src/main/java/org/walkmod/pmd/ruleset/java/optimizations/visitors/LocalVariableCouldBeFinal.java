@@ -1,4 +1,4 @@
-package org.walkmod.pmd.ruleset.java.optimization.visitors;
+package org.walkmod.pmd.ruleset.java.optimizations.visitors;
 
 import java.lang.reflect.Modifier;
 import java.util.Iterator;

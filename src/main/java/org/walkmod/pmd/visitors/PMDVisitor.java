@@ -31,7 +31,7 @@ import net.sourceforge.pmd.Rule;
 import net.sourceforge.pmd.RuleSet;
 import net.sourceforge.pmd.RuleSetFactory;
 
-@RequiresSemanticAnalysis
+@RequiresSemanticAnalysis(optional = true)
 public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
 
     private String configurationfile;
@@ -45,10 +45,20 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
     private boolean splitExecution = false;
 
     private void parseCfg(String config) throws Exception {
-        
+
         RuleSetFactory factory = new RuleSetFactory();
         rules = factory.createRuleSet(config);
 
+    }
+    
+    private String getRuleSetParts(Rule rule){
+        String url = rule.getExternalInfoUrl();
+        String[] parts = url.split("#");
+        int index = parts[0].lastIndexOf("/");
+        String package_ = parts[0].substring(index + 1, parts[0].length() - ".html".length());
+        String name = parts[1];
+        
+        return package_+":"+name;
     }
 
     @Override
@@ -62,38 +72,45 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
                     Object o = null;
                     if (rule.getLanguage().getName().toLowerCase().equals("java")) {
                         try {
-                           
-                            Class<?> c = Class.forName("org.walkmod.pmd.ruleset.java."
-                                    + rule.getRuleSetName().toLowerCase() + ".visitors." + rule.getName(),true,ctx.getClassLoader());
+                          
+                            String[] parts = getRuleSetParts(rule).split(":");
+                          
+                            Class<?> c = Class.forName("org.walkmod.pmd.ruleset.java." + parts[0] + ".visitors." + parts[1],
+                                    true, ctx.getClassLoader());
                             o = c.newInstance();
+                            visitors.add((PMDRuleVisitor) o);
+                            fixingRules.add(rule);
                         } catch (Exception e) {
                         }
-                    }
-                    if (o instanceof PMDRuleVisitor) {
-                        visitors.add((PMDRuleVisitor) o);
-                        fixingRules.add(rule);
                     }
 
                 }
 
             }
+
             Iterator<Rule> it = fixingRules.iterator();
             for (PMDRuleVisitor visitor : visitors) {
                 if (splitExecution) {
+                    boolean requiresSemanticAnalysis = visitor.getClass()
+                            .isAnnotationPresent(RequiresSemanticAnalysis.class);
+                    CompilationUnit aux = null;
+                    if (cu.withSymbols() || !requiresSemanticAnalysis) {
 
-                    CompilationUnit aux;
+                        aux = (CompilationUnit) new CloneVisitor().visit(cu, ctx);
 
-                    aux = (CompilationUnit) new CloneVisitor().visit(cu, ctx);
+                        visitor.visit(cu, aux);
+                        ctx.addResultNode(aux);
 
-                    visitor.visit(cu, aux);
+                    }
                     if (it.hasNext()) {
                         Rule rule = it.next();
-                        Map<String, Object> data = new HashMap<String, Object>();
-                        data.put("cause", "pmd.java." + rule.getRuleSetName() + "." + rule.getName());
-                        aux.setData(data);
+                        if (aux != null) {
+                            Map<String, Object> data = new HashMap<String, Object>();
+                            String[] ruleId = getRuleSetParts(rule).split(":");
+                            data.put("cause", "pmd.java." + ruleId[0] + "." + ruleId[1]);
+                            aux.setData(data);
+                        }
                     }
-                    ctx.addResultNode(aux);
-
                 } else {
                     visitor.visit(cu, null);
                 }
