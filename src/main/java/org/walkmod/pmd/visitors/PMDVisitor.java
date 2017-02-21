@@ -34,7 +34,7 @@ import net.sourceforge.pmd.RuleSetFactory;
 @RequiresSemanticAnalysis(optional = true)
 public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
 
-    private String configurationfile;
+    private String configurationfile ="rulesets/java/basic.xml";
 
     private RuleSet rules = new RuleSet();
 
