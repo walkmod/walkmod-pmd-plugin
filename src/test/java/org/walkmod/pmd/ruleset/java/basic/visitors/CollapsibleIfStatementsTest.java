@@ -25,4 +25,18 @@ public class CollapsibleIfStatementsTest {
       Assert.assertNull(stmt.getStmts());
       Assert.assertTrue(ifStmt.getCondition() instanceof BinaryExpr);
    }
+
+   @Test
+   public void testIssue2() throws Exception {
+      CompilationUnit cu = ASTManager.parse(new File("src/test/resources/examples/collapsibleIfStatementsWithBody.txt"));
+      CollapsibleIfStatements visitor = new CollapsibleIfStatements();
+      visitor.visit(cu, cu);
+      MethodDeclaration md = (MethodDeclaration) cu.getTypes().get(0).getMembers().get(0);
+      BlockStmt block = md.getBody();
+      IfStmt ifStmt = (IfStmt) block.getStmts().get(0);
+      BlockStmt stmt = (BlockStmt) ifStmt.getThenStmt();
+      Assert.assertEquals(1, stmt.getStmts().size());
+      Assert.assertTrue(ifStmt.getCondition() instanceof BinaryExpr);
+      Assert.assertTrue(ifStmt.getThenStmt().isNewNode());
+   }
 }

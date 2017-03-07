@@ -61,20 +61,27 @@ public class CollapsibleIfStatements extends PMDRuleVisitor {
                         BinaryExpr condition = new BinaryExpr(rightExpression, leftExpression, BinaryExpr.Operator.and);
 
                         if (parentIf.getThenStmt() == n) {
-                            parentIf.setThenStmt(n.getThenStmt());
-                            parentIf.setCondition(condition);
+                            try {
+                                parentIf.setThenStmt(n.getThenStmt().clone());
+                                parentIf.setCondition(condition);
+                            }catch (CloneNotSupportedException e){
+                                throw new RuntimeException(e);
+                            }
                         } else {
                             Statement stmt = parentIf.getThenStmt();
                             if (stmt instanceof BlockStmt) {
                                 BlockStmt block = (BlockStmt) stmt;
                                 List<Statement> stmts = block.getStmts();
                                 if (stmts.size() == 1) {
-                                    parentIf.setThenStmt(n.getThenStmt());
-                                    parentIf.setCondition(condition);
+                                    try {
+                                        parentIf.setThenStmt(n.getThenStmt().clone());
+                                        parentIf.setCondition(condition);
+                                    }catch (CloneNotSupportedException e){
+                                        throw new RuntimeException(e);
+                                    }
                                 }
                             }
                         }
-
                     }
                 }
             }
