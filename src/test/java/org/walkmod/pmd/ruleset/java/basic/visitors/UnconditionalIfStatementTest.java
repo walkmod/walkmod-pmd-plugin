@@ -24,4 +24,16 @@ public class UnconditionalIfStatementTest {
       Assert.assertFalse(block.getStmts().get(0) instanceof IfStmt);
       
    }
+
+   @Test
+   public void testIssue3() throws Exception{
+      CompilationUnit cu = ASTManager.parse(new File("src/test/resources/examples/unconditionalIfStatement_issue3.txt"));
+      UnconditionalIfStatement visitor = new UnconditionalIfStatement();
+      visitor.visit(cu, null);
+      MethodDeclaration md = (MethodDeclaration)cu.getTypes().get(0).getMembers().get(0);
+      BlockStmt block = md.getBody();
+      Assert.assertEquals(1, block.getStmts().size());
+      Assert.assertFalse(block.getStmts().get(0) instanceof IfStmt);
+
+   }
 }
