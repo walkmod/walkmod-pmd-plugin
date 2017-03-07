@@ -33,6 +33,7 @@ public class UnconditionalIfStatementTest {
       MethodDeclaration md = (MethodDeclaration)cu.getTypes().get(0).getMembers().get(0);
       BlockStmt block = md.getBody();
       Assert.assertEquals(1, block.getStmts().size());
+      Assert.assertTrue(block.getStmts().get(0).isNewNode());
       Assert.assertFalse(block.getStmts().get(0) instanceof IfStmt);
 
    }

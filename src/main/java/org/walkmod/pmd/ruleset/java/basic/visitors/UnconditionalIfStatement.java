@@ -36,36 +36,41 @@ public class UnconditionalIfStatement extends PMDRuleVisitor {
         n = (IfStmt) ctx;
         if (condition instanceof BooleanLiteralExpr) {
             BooleanLiteralExpr literal = (BooleanLiteralExpr) condition;
-            if (literal.getValue() == true) {
-                Node parent = n.getParentNode();
-                if (parent instanceof BlockStmt) {
-                    BlockStmt block = (BlockStmt) parent;
-                    List<Statement> stmts = block.getStmts();
-                    List<Statement> newStmts = new LinkedList<Statement>(stmts);
-                    Iterator<Statement> it = newStmts.iterator();
-                    int i = 0;
-                    int pos = -1;
-                    while (it.hasNext() && pos == -1) {
-                        Statement next = it.next();
-                        if (next == n) {
-                            it.remove();
-                            pos = i;
+            try {
+                if (literal.getValue() == true) {
+                    Node parent = n.getParentNode();
+                    if (parent instanceof BlockStmt) {
+                        BlockStmt block = (BlockStmt) parent;
+                        List<Statement> stmts = block.getStmts();
+                        List<Statement> newStmts = new LinkedList<Statement>(stmts);
+                        Iterator<Statement> it = newStmts.iterator();
+                        int i = 0;
+                        int pos = -1;
+                        while (it.hasNext() && pos == -1) {
+                            Statement next = it.next();
+                            if (next == n) {
+                                it.remove();
+                                pos = i;
+                            }
+                            i++;
                         }
-                        i++;
-                    }
-                    if (pos != -1) {
-                        Statement stmt = n.getThenStmt();
-                        if (!(stmt instanceof BlockStmt)) {
-                            newStmts.add(pos, n.getThenStmt());
-                        } else {
-                            BlockStmt blockThen = (BlockStmt) stmt;
-                            List<Statement> stmtsList = blockThen.getStmts();
-                            newStmts.addAll(pos, stmtsList);
+                        if (pos != -1) {
+                            Statement stmt = n.getThenStmt();
+                            if (!(stmt instanceof BlockStmt)) {
+                                newStmts.add(pos, n.getThenStmt().clone());
+                            } else {
+                                BlockStmt blockThen = (BlockStmt) stmt;
+                                List<Statement> stmtsList = blockThen.clone().getStmts();
+                                newStmts.addAll(pos, stmtsList);
+                            }
                         }
+                        block.setStmts(newStmts);
                     }
-                    block.setStmts(newStmts);
                 }
+            }catch(CloneNotSupportedException e){
+                throw new RuntimeException(e);
             }
+
         }
 
     }
