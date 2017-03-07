@@ -57,30 +57,31 @@ public class CollapsibleIfStatements extends PMDRuleVisitor {
                         if (leftExpression instanceof BinaryExpr) {
                             leftExpression = new EnclosedExpr(n.getCondition());
                         }
+                        try {
+                            BinaryExpr condition = new BinaryExpr(rightExpression.clone(), leftExpression.clone(), BinaryExpr.Operator.and);
 
-                        BinaryExpr condition = new BinaryExpr(rightExpression, leftExpression, BinaryExpr.Operator.and);
+                            if (parentIf.getThenStmt() == n) {
+                                try {
+                                    parentIf.setThenStmt(n.getThenStmt().clone());
+                                    parentIf.setCondition(condition);
+                                }catch (CloneNotSupportedException e){
+                                    throw new RuntimeException(e);
+                                }
+                            } else {
+                                Statement stmt = parentIf.getThenStmt();
+                                if (stmt instanceof BlockStmt) {
+                                    BlockStmt block = (BlockStmt) stmt;
+                                    List<Statement> stmts = block.getStmts();
+                                    if (stmts.size() == 1) {
 
-                        if (parentIf.getThenStmt() == n) {
-                            try {
-                                parentIf.setThenStmt(n.getThenStmt().clone());
-                                parentIf.setCondition(condition);
-                            }catch (CloneNotSupportedException e){
-                                throw new RuntimeException(e);
-                            }
-                        } else {
-                            Statement stmt = parentIf.getThenStmt();
-                            if (stmt instanceof BlockStmt) {
-                                BlockStmt block = (BlockStmt) stmt;
-                                List<Statement> stmts = block.getStmts();
-                                if (stmts.size() == 1) {
-                                    try {
-                                        parentIf.setThenStmt(n.getThenStmt().clone());
-                                        parentIf.setCondition(condition);
-                                    }catch (CloneNotSupportedException e){
-                                        throw new RuntimeException(e);
+                                            parentIf.setThenStmt(n.getThenStmt().clone());
+                                            parentIf.setCondition(condition);
+
                                     }
                                 }
                             }
+                        } catch (CloneNotSupportedException e){
+                            throw new RuntimeException(e);
                         }
                     }
                 }
