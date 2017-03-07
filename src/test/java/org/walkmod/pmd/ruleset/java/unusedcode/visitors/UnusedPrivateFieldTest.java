@@ -24,4 +24,14 @@ public class UnusedPrivateFieldTest extends SemanticTest{
         visitor.visit(cu, cu);
         Assert.assertEquals(2,cu.getTypes().get(0).getMembers().size());
     }
+
+
+    @Test
+    public void should_not_remove_serial_version_ids() throws Exception{
+        CompilationUnit cu = compile("public class Foo{ private static final long serialVersionUID = 0x1e28782b066ab988L; } ");
+
+        UnusedPrivateField visitor = new UnusedPrivateField();
+        visitor.visit(cu, cu);
+        Assert.assertEquals(1,cu.getTypes().get(0).getMembers().size());
+    }
 }
