@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.sourceforge.pmd.Rule;
 import org.junit.Assert;
 import org.junit.Test;
 import org.walkmod.javalang.ASTManager;
@@ -29,6 +30,17 @@ public class PMDVisitorTest extends SemanticTest {
 
         Assert.assertNotNull(rules.getRuleByName("BooleanInstantiation"));
 
+    }
+
+    @Test
+    public void testMavenDefaults() throws Exception{
+        PMDVisitor visitor = new PMDVisitor();
+        String defaults = "java-basic, java-empty, java-imports, java-unnecessary, java-unusedcode";
+        visitor.setConfigurationFile(defaults);
+        RuleSet rules = visitor.getRules();
+        Assert.assertNotNull(rules);
+
+        Assert.assertNotNull(rules.getRuleByName("UnusedImports"));
     }
 
     @Test

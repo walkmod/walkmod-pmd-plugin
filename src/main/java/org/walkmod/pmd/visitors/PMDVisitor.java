@@ -34,7 +34,7 @@ import net.sourceforge.pmd.RuleSetFactory;
 @RequiresSemanticAnalysis(optional = true)
 public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
 
-    private String configurationfile ="rulesets/java/basic.xml";
+    private String configurationfile ="java-basic, java-empty, java-imports, java-unnecessary, java-unusedcode";
 
     private RuleSet rules = new RuleSet();
 
@@ -47,11 +47,22 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
     private void parseCfg(String config) throws Exception {
 
         RuleSetFactory factory = new RuleSetFactory();
-        rules = factory.createRuleSet(config);
+        String[] parts = config.split(",");
+        for(String part: parts){
+            RuleSet aux = factory.createRuleSet(part.trim());
+            if(rules == null){
+                rules = aux;
+            }
+            else{
+                rules.addRuleSet(aux);
+            }
+        }
+
+
 
     }
     
-    private String getRuleSetParts(Rule rule){
+    protected String getRuleSetParts(Rule rule){
         String url = rule.getExternalInfoUrl();
         String[] parts = url.split("#");
         int index = parts[0].lastIndexOf("/");
