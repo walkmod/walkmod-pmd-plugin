@@ -24,4 +24,22 @@ public class UnusedPrivateMethodTest extends SemanticTest{
         visitor.visit(cu, cu);
         Assert.assertEquals(2,cu.getTypes().get(0).getMembers().size());
     }
+
+    @Test
+    public void should_not_remove_method_when_it_is_writeObject() throws Exception{
+        CompilationUnit cu = compile("import java.io.*; public class Foo{ private void writeObject(ObjectOutputStream s) throws IOException {} } ");
+
+        UnusedPrivateMethod visitor = new UnusedPrivateMethod();
+        visitor.visit(cu, cu);
+        Assert.assertEquals(1,cu.getTypes().get(0).getMembers().size());
+    }
+
+    @Test
+    public void should_not_remove_method_when_it_is_readObject() throws Exception{
+        CompilationUnit cu = compile("import java.io.*; public class Foo{ private void readObject(ObjectInputStream s) throws IOException {} } ");
+
+        UnusedPrivateMethod visitor = new UnusedPrivateMethod();
+        visitor.visit(cu, cu);
+        Assert.assertEquals(1,cu.getTypes().get(0).getMembers().size());
+    }
 }
