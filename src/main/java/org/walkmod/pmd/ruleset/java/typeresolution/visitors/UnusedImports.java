@@ -7,8 +7,10 @@ import org.walkmod.javalang.ast.Node;
 import org.walkmod.javalang.ast.SymbolReference;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
+import org.walkmod.pmd.visitors.Removal;
 
 @RequiresSemanticAnalysis
+@Removal
 public class UnusedImports extends PMDRuleVisitor {
 
     @Override

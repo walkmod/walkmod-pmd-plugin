@@ -20,8 +20,10 @@ import org.walkmod.javalang.ast.expr.BooleanLiteralExpr;
 import org.walkmod.javalang.ast.expr.Expression;
 import org.walkmod.javalang.ast.expr.UnaryExpr;
 import org.walkmod.javalang.ast.expr.UnaryExpr.Operator;
+import org.walkmod.pmd.visitors.Modification;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
+@Modification
 public class AvoidMultipleUnaryOperators extends PMDRuleVisitor {
 
     @Override

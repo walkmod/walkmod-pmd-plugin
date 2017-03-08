@@ -33,9 +33,11 @@ import org.walkmod.javalang.ast.expr.QualifiedNameExpr;
 import org.walkmod.javalang.ast.type.ReferenceType;
 import org.walkmod.javalang.ast.type.Type;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
+import org.walkmod.pmd.visitors.Modification;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
 @RequiresSemanticAnalysis
+@Modification
 public class ClassCastExceptionWithToArray extends PMDRuleVisitor {
 
     @Override

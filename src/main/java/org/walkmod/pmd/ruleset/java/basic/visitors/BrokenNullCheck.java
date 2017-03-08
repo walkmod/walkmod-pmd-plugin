@@ -31,8 +31,10 @@ import org.walkmod.javalang.ast.expr.NameExpr;
 import org.walkmod.javalang.ast.expr.NullLiteralExpr;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
 import org.walkmod.javalang.visitors.VoidVisitorAdapter;
+import org.walkmod.pmd.visitors.Modification;
 
 @RequiresSemanticAnalysis
+@Modification
 public class BrokenNullCheck<T> extends VoidVisitorAdapter<T> {
 
     @Override

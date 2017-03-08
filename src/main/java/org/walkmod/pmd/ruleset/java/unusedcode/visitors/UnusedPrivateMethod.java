@@ -9,10 +9,12 @@ import org.walkmod.javalang.ast.body.Parameter;
 import org.walkmod.javalang.ast.type.Type;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
+import org.walkmod.pmd.visitors.Removal;
 
 import java.util.List;
 
 @RequiresSemanticAnalysis
+@Removal
 public class UnusedPrivateMethod extends PMDRuleVisitor{
 
     @Override

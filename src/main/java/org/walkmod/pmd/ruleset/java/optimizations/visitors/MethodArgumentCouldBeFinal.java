@@ -13,8 +13,10 @@ import org.walkmod.javalang.ast.expr.EnclosedExpr;
 import org.walkmod.javalang.ast.expr.UnaryExpr;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
+import org.walkmod.pmd.visitors.Modification;
 
 @RequiresSemanticAnalysis
+@Modification
 public class MethodArgumentCouldBeFinal extends PMDRuleVisitor {
     @Override
     public void visit(Parameter n, Node context) {

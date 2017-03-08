@@ -23,7 +23,9 @@ import org.walkmod.javalang.ast.stmt.Statement;
 import org.walkmod.javalang.ast.type.ReferenceType;
 import org.walkmod.javalang.ast.type.Type;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
+import org.walkmod.pmd.visitors.Modification;
 
+@Modification
 public class MethodReturnsInternalArray extends PMDRuleVisitor {
 
     @Override

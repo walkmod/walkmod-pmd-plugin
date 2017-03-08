@@ -12,7 +12,9 @@ import org.walkmod.javalang.ast.expr.IntegerLiteralExpr;
 import org.walkmod.javalang.ast.expr.LongLiteralExpr;
 import org.walkmod.javalang.ast.expr.NullLiteralExpr;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
+import org.walkmod.pmd.visitors.Modification;
 
+@Modification
 public class RedundantFieldInitializer extends PMDRuleVisitor {
 
     @Override

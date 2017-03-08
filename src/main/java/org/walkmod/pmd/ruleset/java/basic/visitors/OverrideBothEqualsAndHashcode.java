@@ -31,8 +31,10 @@ import org.walkmod.javalang.ast.body.VariableDeclaratorId;
 import org.walkmod.javalang.ast.stmt.BlockStmt;
 import org.walkmod.javalang.ast.type.ClassOrInterfaceType;
 import org.walkmod.javalang.ast.type.Type;
+import org.walkmod.pmd.visitors.Addition;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
+@Addition
 public class OverrideBothEqualsAndHashcode extends PMDRuleVisitor {
 
     public void visit(ClassOrInterfaceDeclaration coid, Node ctx) {

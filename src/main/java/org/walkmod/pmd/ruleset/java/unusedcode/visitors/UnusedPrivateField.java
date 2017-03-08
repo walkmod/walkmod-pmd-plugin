@@ -7,8 +7,12 @@ import org.walkmod.javalang.ast.SymbolReference;
 import org.walkmod.javalang.ast.body.FieldDeclaration;
 import org.walkmod.javalang.ast.body.ModifierSet;
 import org.walkmod.javalang.ast.body.VariableDeclarator;
+import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
+import org.walkmod.pmd.visitors.Removal;
 
+@RequiresSemanticAnalysis
+@Removal
 public class UnusedPrivateField extends PMDRuleVisitor {
 
     @Override

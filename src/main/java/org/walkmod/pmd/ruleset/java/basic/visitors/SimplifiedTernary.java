@@ -23,9 +23,11 @@ import org.walkmod.javalang.ast.expr.ConditionalExpr;
 import org.walkmod.javalang.ast.expr.Expression;
 import org.walkmod.javalang.ast.expr.UnaryExpr;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
+import org.walkmod.pmd.visitors.Modification;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
 @RequiresSemanticAnalysis
+@Modification
 public class SimplifiedTernary extends PMDRuleVisitor {
 
     @Override

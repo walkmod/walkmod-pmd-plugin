@@ -36,7 +36,7 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
 
     private String configurationfile ="java-basic, java-empty, java-imports, java-unnecessary, java-unusedcode";
 
-    private RuleSet rules = new RuleSet();
+    private RuleSet rules = null;
 
     private List<Rule> fixingRules = new LinkedList<Rule>();
 
@@ -74,10 +74,25 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
 
     @Override
     public void visit(CompilationUnit cu, VisitorContext ctx) {
+        if(rules == null){
+            try {
+                setConfigurationFile(configurationfile);
+            }catch(Exception e){
+                throw new RuntimeException(e);
+            }
+        }
 
         if (rules != null) {
             if (visitors == null) {
                 visitors = new LinkedList<PMDRuleVisitor>();
+                List<PMDRuleVisitor> additionVisitors = new LinkedList<PMDRuleVisitor>();
+                List<PMDRuleVisitor> modificationVisitors = new LinkedList<PMDRuleVisitor>();
+                List<PMDRuleVisitor> removalVisitors = new LinkedList<PMDRuleVisitor>();
+
+                List<Rule> additionRules = new LinkedList<Rule>();
+                List<Rule> modificationRules = new LinkedList<Rule>();
+                List<Rule> removalRules = new LinkedList<Rule>();
+
                 for (Rule rule : rules.getRules()) {
 
                     Object o = null;
@@ -89,14 +104,31 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
                             Class<?> c = Class.forName("org.walkmod.pmd.ruleset.java." + parts[0] + ".visitors." + parts[1],
                                     true, ctx.getClassLoader());
                             o = c.newInstance();
-                            visitors.add((PMDRuleVisitor) o);
-                            fixingRules.add(rule);
+
+                            if(c.isAnnotationPresent(Modification.class)){
+                                modificationVisitors.add((PMDRuleVisitor) o);
+                                modificationRules.add(rule);
+                            }
+                            else if(c.isAnnotationPresent(Removal.class)){
+                                removalVisitors.add((PMDRuleVisitor) o);
+                                removalRules.add(rule);
+                            }
+                            else if(c.isAnnotationPresent(Addition.class)){
+                                additionVisitors.add((PMDRuleVisitor) o);
+                                additionRules.add(rule);
+                            }
+
                         } catch (Exception e) {
                         }
                     }
 
                 }
-
+                visitors.addAll(removalVisitors);
+                fixingRules.addAll(removalRules);
+                visitors.addAll(modificationVisitors);
+                fixingRules.addAll(modificationRules);
+                visitors.addAll(additionVisitors);
+                fixingRules.addAll(additionRules);
             }
 
             Iterator<Rule> it = fixingRules.iterator();

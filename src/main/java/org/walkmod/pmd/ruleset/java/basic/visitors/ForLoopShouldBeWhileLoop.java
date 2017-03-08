@@ -24,8 +24,10 @@ import org.walkmod.javalang.ast.stmt.BlockStmt;
 import org.walkmod.javalang.ast.stmt.ForStmt;
 import org.walkmod.javalang.ast.stmt.Statement;
 import org.walkmod.javalang.ast.stmt.WhileStmt;
+import org.walkmod.pmd.visitors.Modification;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
+@Modification
 public class ForLoopShouldBeWhileLoop extends PMDRuleVisitor {
 
     public void visit(ForStmt n, Node ctx) {

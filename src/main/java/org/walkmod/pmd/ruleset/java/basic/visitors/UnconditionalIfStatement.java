@@ -25,8 +25,10 @@ import org.walkmod.javalang.ast.expr.Expression;
 import org.walkmod.javalang.ast.stmt.BlockStmt;
 import org.walkmod.javalang.ast.stmt.IfStmt;
 import org.walkmod.javalang.ast.stmt.Statement;
+import org.walkmod.pmd.visitors.Modification;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
+@Modification
 public class UnconditionalIfStatement extends PMDRuleVisitor {
 
     @Override

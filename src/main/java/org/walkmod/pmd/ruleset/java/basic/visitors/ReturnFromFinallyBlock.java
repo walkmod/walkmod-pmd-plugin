@@ -28,8 +28,10 @@ import org.walkmod.javalang.ast.stmt.TryStmt;
 import org.walkmod.javalang.ast.type.Type;
 import org.walkmod.javalang.ast.type.VoidType;
 import org.walkmod.javalang.visitors.VoidVisitorAdapter;
+import org.walkmod.pmd.visitors.Modification;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
+@Modification
 public class ReturnFromFinallyBlock extends PMDRuleVisitor {
 
     public void visit(MethodDeclaration md, Node ctx) {

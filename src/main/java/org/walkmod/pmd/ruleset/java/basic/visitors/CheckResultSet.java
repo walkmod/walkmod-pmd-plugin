@@ -36,9 +36,11 @@ import org.walkmod.javalang.ast.stmt.Statement;
 import org.walkmod.javalang.ast.type.Type;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
 import org.walkmod.javalang.visitors.VoidVisitorAdapter;
+import org.walkmod.pmd.visitors.Modification;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
 @RequiresSemanticAnalysis
+@Modification
 public class CheckResultSet extends PMDRuleVisitor {
 
     @Override

@@ -11,8 +11,10 @@ import org.walkmod.javalang.ast.body.FieldDeclaration;
 import org.walkmod.javalang.ast.body.MethodDeclaration;
 import org.walkmod.javalang.ast.body.ModifierSet;
 import org.walkmod.javalang.ast.body.VariableDeclarator;
+import org.walkmod.pmd.visitors.Addition;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
+@Addition
 public class BeanMembersShouldSerialize extends PMDRuleVisitor {
 
     @Override

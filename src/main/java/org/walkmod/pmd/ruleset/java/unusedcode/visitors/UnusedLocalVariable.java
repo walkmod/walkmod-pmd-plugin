@@ -9,8 +9,10 @@ import org.walkmod.javalang.ast.expr.VariableDeclarationExpr;
 import org.walkmod.javalang.ast.stmt.ExpressionStmt;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
+import org.walkmod.pmd.visitors.Removal;
 
 @RequiresSemanticAnalysis
+@Removal
 public class UnusedLocalVariable extends PMDRuleVisitor {
 
     @Override

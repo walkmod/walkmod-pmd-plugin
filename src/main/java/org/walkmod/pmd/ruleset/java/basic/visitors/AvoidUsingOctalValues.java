@@ -17,8 +17,10 @@ package org.walkmod.pmd.ruleset.java.basic.visitors;
 
 import org.walkmod.javalang.ast.Node;
 import org.walkmod.javalang.ast.expr.IntegerLiteralExpr;
+import org.walkmod.pmd.visitors.Modification;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
+@Modification
 public class AvoidUsingOctalValues extends PMDRuleVisitor {
 
     @Override

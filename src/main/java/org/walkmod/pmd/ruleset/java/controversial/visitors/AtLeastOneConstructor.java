@@ -11,8 +11,10 @@ import org.walkmod.javalang.ast.body.ConstructorDeclaration;
 import org.walkmod.javalang.ast.body.ModifierSet;
 import org.walkmod.javalang.ast.stmt.BlockStmt;
 import org.walkmod.javalang.ast.stmt.Statement;
+import org.walkmod.pmd.visitors.Addition;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
+@Addition
 public class AtLeastOneConstructor extends PMDRuleVisitor {
 
     @Override

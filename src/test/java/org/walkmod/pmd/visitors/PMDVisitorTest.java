@@ -75,4 +75,26 @@ public class PMDVisitorTest extends SemanticTest {
         Assert.assertEquals("hashCode", ((MethodDeclaration) members.get(1)).getName());
 
     }
+
+    @Test
+    public void testRulesPriority_issue9() throws Exception{
+        String code = "public class Foo { " +
+                "private boolean x = true; " +
+                "public void foo(int y) {" +
+                " if (x) { " +
+                "   if(y ==0) { " +
+                "       System.out.println(\"hello\");" +
+                "   } " +
+                " }" +
+                "} " +
+                "}";
+        CompilationUnit cu = compile(code);
+        PMDVisitor visitor = new PMDVisitor();
+
+        VisitorContext ctx = new VisitorContext();
+        visitor.visit(cu, ctx);
+
+        Assert.assertEquals(2, cu.getTypes().get(0).getMembers().size());
+
+    }
 }

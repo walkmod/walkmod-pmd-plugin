@@ -12,7 +12,9 @@ import org.walkmod.javalang.ast.body.ModifierSet;
 import org.walkmod.javalang.ast.body.VariableDeclarator;
 import org.walkmod.javalang.ast.expr.AssignExpr;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
+import org.walkmod.pmd.visitors.Modification;
 
+@Modification
 public class ImmutableField extends PMDRuleVisitor {
 
     @Override
