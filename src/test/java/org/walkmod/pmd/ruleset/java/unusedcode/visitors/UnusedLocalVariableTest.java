@@ -29,4 +29,25 @@ public class UnusedLocalVariableTest extends SemanticTest {
         Assert.assertEquals(2, md.getBody().getStmts().size());
 
     }
+
+    @Test
+    public void should_not_remove_var_issue11() throws Exception{
+        CompilationUnit cu = compile("import javax.swing.*; public class Foo {" +
+                " public JFrame getMainFrame(){ return null;} " +
+                "public void bar() {" +
+                "   JFrame mainFrame = getMainFrame();\n" +
+                "   mainFrame.setTitle(\"frameTitle\");\n" +
+                "   mainFrame.setSize(50, 50);\n" +
+                "   mainFrame.setJMenuBar(null);" +
+                "}" +
+                "}");
+
+
+
+        UnusedLocalVariable visitor = new UnusedLocalVariable();
+        visitor.visit(cu, cu);
+
+        MethodDeclaration md = (MethodDeclaration)cu.getTypes().get(0).getMembers().get(1);
+        Assert.assertEquals(4, md.getBody().getStmts().size());
+    }
 }
