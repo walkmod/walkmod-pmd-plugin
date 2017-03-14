@@ -1,4 +1,4 @@
-package de.walkmod.pmd;
+
 
 public class NPE1 {
 

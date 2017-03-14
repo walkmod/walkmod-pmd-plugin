@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import net.sourceforge.pmd.Rule;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.walkmod.javalang.ASTManager;
@@ -95,6 +96,19 @@ public class PMDVisitorTest extends SemanticTest {
         visitor.visit(cu, ctx);
 
         Assert.assertEquals(2, cu.getTypes().get(0).getMembers().size());
+
+    }
+
+    @Test
+    public void testRulesPriority_issue10() throws Exception{
+        String code = FileUtils.readFileToString(new File("src/test/resources/examples/NPE1.txt"));
+        CompilationUnit cu = compile(code);
+        PMDVisitor visitor = new PMDVisitor();
+
+        VisitorContext ctx = new VisitorContext();
+        visitor.visit(cu, ctx);
+
+        Assert.assertTrue(true);
 
     }
 }

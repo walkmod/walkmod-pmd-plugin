@@ -156,7 +156,10 @@ public class PMDRuleVisitor implements VoidVisitor<Node> {
                 dim.accept(this, it.next());
             }
         } else {
-            n.getInitializer().accept(this, aux.getInitializer());
+            ArrayInitializerExpr expr = n.getInitializer();
+            if(expr != null) {
+                expr.accept(this, aux.getInitializer());
+            }
         }
         if (n.getArraysAnnotations() != null) {
 
