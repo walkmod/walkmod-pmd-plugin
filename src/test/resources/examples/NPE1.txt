@@ -1,0 +1,13 @@
+package de.walkmod.pmd;
+
+public class NPE1 {
+
+    public void f() {
+        if (true) {
+            final String[] text = new String[] {
+                    "1"
+            };
+            System.out.println(text);
+        }
+    }
+}
