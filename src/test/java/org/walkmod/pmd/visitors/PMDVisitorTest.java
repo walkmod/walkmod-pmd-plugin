@@ -111,4 +111,17 @@ public class PMDVisitorTest extends SemanticTest {
         Assert.assertTrue(true);
 
     }
+
+    @Test
+    public void testRulesPriority_issue11() throws Exception{
+        String code = FileUtils.readFileToString(new File("src/test/resources/examples/IncorrectUnusedVar.txt"));
+        CompilationUnit cu = compile(code);
+        PMDVisitor visitor = new PMDVisitor();
+
+        VisitorContext ctx = new VisitorContext();
+        visitor.visit(cu, ctx);
+        System.out.println(cu);
+        Assert.assertTrue(true);
+
+    }
 }
