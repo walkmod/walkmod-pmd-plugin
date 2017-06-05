@@ -14,6 +14,7 @@ import org.walkmod.javalang.test.SemanticTest;
 import org.walkmod.javalang.visitors.VoidVisitor;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  */
@@ -25,7 +26,9 @@ public class SemanticFixtureTest extends SemanticTest {
         final ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(getClass().getClassLoader());
         final String fixtureDir = suite.toLowerCase().replace("fixturetest", "");
 
-        for (Resource r : resolver.getResources("fixture/pmd/" + fixtureDir + "/in/*.java")) {
+        boolean didWork = false;
+        final String locationPattern = "fixture/pmd/" + fixtureDir + "/in/*.java";
+        for (Resource r : resolver.getResources(locationPattern)) {
             final File inFile = r.getFile();
             final File outFile = new File(new File(inFile.getParentFile().getParentFile(), "out"), inFile.getName());
             final String in = FileUtils.readFileToString(inFile, UTF8);
@@ -35,6 +38,9 @@ public class SemanticFixtureTest extends SemanticTest {
             visitor.visit(cu, cu);
             final String transformed = cu.getPrettySource(' ', 0, 4);
             assertEquals(">" + out + "<", ">" + transformed + "<");
+            didWork = true;
         }
+
+        assertTrue("could not locate resources matching " + locationPattern, didWork);
     }
 }
