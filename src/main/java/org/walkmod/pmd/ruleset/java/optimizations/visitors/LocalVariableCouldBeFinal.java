@@ -71,8 +71,8 @@ public class LocalVariableCouldBeFinal extends PMDRuleVisitor {
 
             if (op.equals(UnaryExpr.Operator.posIncrement)
                     || op.equals(UnaryExpr.Operator.posDecrement)
-                    || op.equals(UnaryExpr.Operator.preDecrement)
-                    || op.equals(UnaryExpr.Operator.posDecrement)) {
+                    || op.equals(UnaryExpr.Operator.preIncrement)
+                    || op.equals(UnaryExpr.Operator.preDecrement)) {
                 return true;
             }
         }
