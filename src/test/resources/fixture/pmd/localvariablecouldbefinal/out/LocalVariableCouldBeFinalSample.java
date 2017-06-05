@@ -9,6 +9,11 @@ public class LocalVariableCouldBeFinalSample {
         a = "b";
     }
 
+    public void varsBeingAssignedAreFinal(Object c) {
+        final String a = "a";
+        c = a;
+    }
+
     public int readOnlyUsageIsFinal() {
         final int count = 0;
         return -count;
