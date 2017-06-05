@@ -11,8 +11,8 @@ import org.walkmod.javalang.ast.body.MethodDeclaration;
 import org.walkmod.javalang.ast.body.ModifierSet;
 import org.walkmod.javalang.ast.body.VariableDeclarator;
 import org.walkmod.javalang.ast.expr.AssignExpr;
-import org.walkmod.pmd.visitors.PMDRuleVisitor;
 import org.walkmod.pmd.visitors.Modification;
+import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
 @Modification
 public class ImmutableField extends PMDRuleVisitor {
@@ -34,7 +34,7 @@ public class ImmutableField extends PMDRuleVisitor {
                     while (it.hasNext() && !isUsedFromMethod) {
                         SymbolReference next = it.next();
                         Node auxNode = (Node) next;
-                       
+
                         isUsedFromMethod = (isUsedFromMethod(auxNode) && isAssigned(auxNode));
                     }
                     if (!isUsedFromMethod) {
@@ -45,18 +45,18 @@ public class ImmutableField extends PMDRuleVisitor {
             }
         }
     }
-    
-    private boolean isAssigned(Node node){
-        if(node == null){
+
+    private boolean isAssigned(Node node) {
+        if (node == null) {
             return false;
         }
         Node parent = node.getParentNode();
-        
-        if(parent instanceof AssignExpr){
+
+        if (parent instanceof AssignExpr) {
             AssignExpr ae = (AssignExpr) parent;
             return (ae.getTarget() == node);
         }
-       
+
         return false;
     }
 
@@ -69,6 +69,5 @@ public class ImmutableField extends PMDRuleVisitor {
         } else {
             return isUsedFromMethod(node.getParentNode());
         }
-
     }
 }

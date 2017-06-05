@@ -1,13 +1,13 @@
 package org.walkmod.pmd.ruleset.java.imports.visitors;
 
+import java.util.List;
+
 import org.walkmod.javalang.ast.ImportDeclaration;
 import org.walkmod.javalang.ast.Node;
 import org.walkmod.javalang.ast.SymbolReference;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
 import org.walkmod.pmd.visitors.Removal;
-
-import java.util.List;
 
 @RequiresSemanticAnalysis
 @Removal

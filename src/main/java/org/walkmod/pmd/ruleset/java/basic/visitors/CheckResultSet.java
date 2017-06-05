@@ -1,18 +1,19 @@
-/* 
-  Copyright (C) 2016 Raquel Pau.
- 
-  Walkmod is free software: you can redistribute it and/or modify
-  it under the terms of the GNU Lesser General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
- 
-  Walkmod is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU Lesser General Public License for more details.
- 
-  You should have received a copy of the GNU Lesser General Public License
-  along with Walkmod.  If not, see <http://www.gnu.org/licenses/>.*/
+/*
+ * Copyright (C) 2016 Raquel Pau.
+ *
+ * Walkmod is free software: you can redistribute it and/or modify it under the
+ * terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * Walkmod is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Walkmod. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.walkmod.pmd.ruleset.java.basic.visitors;
 
 import java.sql.ResultSet;
@@ -35,7 +36,6 @@ import org.walkmod.javalang.ast.stmt.IfStmt;
 import org.walkmod.javalang.ast.stmt.Statement;
 import org.walkmod.javalang.ast.type.Type;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
-import org.walkmod.javalang.visitors.VoidVisitorAdapter;
 import org.walkmod.pmd.visitors.Modification;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
@@ -69,7 +69,6 @@ public class CheckResultSet extends PMDRuleVisitor {
                 }
             }
         }
-
     }
 
     private void updateStmts(SymbolDefinition symbolDef) {
@@ -143,6 +142,5 @@ public class CheckResultSet extends PMDRuleVisitor {
                 }
             }
         }
-
     }
 }

@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+
 import org.walkmod.javalang.ASTManager;
 import org.walkmod.javalang.ast.Node;
 import org.walkmod.javalang.ast.body.BodyDeclaration;
@@ -22,8 +23,8 @@ import org.walkmod.javalang.ast.stmt.ReturnStmt;
 import org.walkmod.javalang.ast.stmt.Statement;
 import org.walkmod.javalang.ast.type.ReferenceType;
 import org.walkmod.javalang.ast.type.Type;
-import org.walkmod.pmd.visitors.PMDRuleVisitor;
 import org.walkmod.pmd.visitors.Modification;
+import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
 @Modification
 public class MethodReturnsInternalArray extends PMDRuleVisitor {
@@ -53,7 +54,6 @@ public class MethodReturnsInternalArray extends PMDRuleVisitor {
                         }
                     }
                 }
-
             }
         }
     }
@@ -64,8 +64,12 @@ public class MethodReturnsInternalArray extends PMDRuleVisitor {
         ReturnStmt returnStmt = (ReturnStmt) stmt;
         try {
 
-            ConditionalExpr expr = (ConditionalExpr) ASTManager.parse(ConditionalExpr.class,
-                    variable + "==null?null:java.util.Arrays.copyOf(" + variable + "," + variable + ".length)");
+            ConditionalExpr expr = (ConditionalExpr) ASTManager.parse(ConditionalExpr.class, variable
+                    + "==null?null:java.util.Arrays.copyOf("
+                    + variable
+                    + ","
+                    + variable
+                    + ".length)");
             returnStmt.setExpr(expr);
 
         } catch (Exception e) {
@@ -98,7 +102,6 @@ public class MethodReturnsInternalArray extends PMDRuleVisitor {
                             getter = md;
                         }
                     }
-
                 }
             }
             return getter;
@@ -128,10 +131,8 @@ public class MethodReturnsInternalArray extends PMDRuleVisitor {
                     }
                 }
             }
-
         }
 
         return false;
     }
-
 }

@@ -11,8 +11,8 @@ import org.walkmod.javalang.ast.expr.Expression;
 import org.walkmod.javalang.ast.expr.IntegerLiteralExpr;
 import org.walkmod.javalang.ast.expr.LongLiteralExpr;
 import org.walkmod.javalang.ast.expr.NullLiteralExpr;
-import org.walkmod.pmd.visitors.PMDRuleVisitor;
 import org.walkmod.pmd.visitors.Modification;
+import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
 @Modification
 public class RedundantFieldInitializer extends PMDRuleVisitor {
@@ -61,7 +61,5 @@ public class RedundantFieldInitializer extends PMDRuleVisitor {
         }
         vd.setInit(null);
         vds.add(vd);
-
     }
-
 }

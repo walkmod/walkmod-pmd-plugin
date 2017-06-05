@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+
 import org.walkmod.javalang.ast.CompilationUnit;
 import org.walkmod.javalang.ast.body.MethodDeclaration;
 import org.walkmod.javalang.ast.expr.BinaryExpr;
@@ -152,7 +153,6 @@ public class BrokenNullCheckTest extends SemanticTest {
 
         Assert.assertTrue(binExpr.getOperator().equals(BinaryExpr.Operator.or));
         Assert.assertTrue(binExpr.getRight() instanceof EnclosedExpr);
-
     }
 
     @Test
@@ -171,7 +171,6 @@ public class BrokenNullCheckTest extends SemanticTest {
 
         Assert.assertTrue(binExpr.getOperator().equals(BinaryExpr.Operator.and));
         Assert.assertTrue(binExpr.getRight() instanceof EnclosedExpr);
-
     }
 
     @Test
@@ -190,7 +189,6 @@ public class BrokenNullCheckTest extends SemanticTest {
 
         Assert.assertTrue(binExpr.getOperator().equals(BinaryExpr.Operator.or));
         Assert.assertTrue(binExpr.getRight() instanceof EnclosedExpr);
-
     }
 
     @Test
@@ -209,7 +207,6 @@ public class BrokenNullCheckTest extends SemanticTest {
 
         Assert.assertTrue(binExpr.getOperator().equals(BinaryExpr.Operator.or));
         Assert.assertTrue(binExpr.getRight() instanceof EnclosedExpr);
-
     }
 
     @Test
@@ -241,7 +238,6 @@ public class BrokenNullCheckTest extends SemanticTest {
         //MethodDeclaration md = (MethodDeclaration) cu.getTypes().get(0).getMembers().get(0);
         //List<Statement> stmts = md.getBody().getStmts();
         Assert.assertTrue(true);
-
     }
 
     @Test
@@ -253,6 +249,4 @@ public class BrokenNullCheckTest extends SemanticTest {
         visitor.visit(cu, null);
         Assert.assertTrue(true);
     }
-
-  
 }

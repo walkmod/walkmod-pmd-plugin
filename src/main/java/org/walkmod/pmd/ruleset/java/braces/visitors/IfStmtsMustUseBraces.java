@@ -7,6 +7,7 @@ import org.walkmod.pmd.visitors.Modification;
  */
 @Modification
 public class IfStmtsMustUseBraces extends StatementsMustUseBraces {
+
     public IfStmtsMustUseBraces() {
         super(Flag.If);
     }
