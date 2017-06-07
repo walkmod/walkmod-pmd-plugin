@@ -17,6 +17,14 @@ public class MethodArgumentCouldBeFinalSample {
         }
     }
 
+    public interface InterfaceMethodParametersAreNotFinal {
+        void method(int i);
+    }
+
+    public abstract class AbstractMethodParametersAreNotFinal {
+        abstract void method(int i);
+    }
+
     public int readOnlyUsageIsFinal(int count) {
         return -count;
     }

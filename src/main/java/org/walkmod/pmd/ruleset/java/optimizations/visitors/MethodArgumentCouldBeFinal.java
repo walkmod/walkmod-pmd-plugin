@@ -1,11 +1,14 @@
 package org.walkmod.pmd.ruleset.java.optimizations.visitors;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Iterator;
 import java.util.List;
 
+import org.walkmod.javalang.ast.MethodSymbolData;
 import org.walkmod.javalang.ast.Node;
 import org.walkmod.javalang.ast.SymbolReference;
+import org.walkmod.javalang.ast.body.MethodDeclaration;
 import org.walkmod.javalang.ast.body.ModifierSet;
 import org.walkmod.javalang.ast.body.Parameter;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
@@ -23,7 +26,7 @@ public class MethodArgumentCouldBeFinal extends PMDRuleVisitor {
         super.visit(n, context);
         Parameter aux = (Parameter) context;
 
-        if (!ModifierSet.isFinal(n.getModifiers())) {
+        if (!ModifierSet.isFinal(n.getModifiers()) && !isBodyLessMethod(n.getParentNode())) {
 
             List<SymbolReference> usages = n.getUsages();
             boolean areFinal = true;
@@ -41,6 +44,17 @@ public class MethodArgumentCouldBeFinal extends PMDRuleVisitor {
             if (areFinal) {
                 aux.setModifiers(ModifierSet.addModifier(n.getModifiers(), Modifier.FINAL));
             }
+        }
+    }
+
+    private boolean isBodyLessMethod(Node node) {
+        if (node instanceof MethodDeclaration) {
+            final MethodSymbolData sd = ((MethodDeclaration) node).getSymbolData();
+            final Method method = sd != null ? sd.getMethod() : null;
+            final int modifiers = method != null ? method.getModifiers() : 0;
+            return Modifier.isAbstract(modifiers) || Modifier.isNative(modifiers);
+        } else {
+            return false;
         }
     }
 }
