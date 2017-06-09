@@ -157,7 +157,7 @@ public class PMDRuleVisitor implements VoidVisitor<Node> {
             }
         } else {
             ArrayInitializerExpr expr = n.getInitializer();
-            if(expr != null) {
+            if (expr != null) {
                 expr.accept(this, aux.getInitializer());
             }
         }
@@ -210,8 +210,7 @@ public class PMDRuleVisitor implements VoidVisitor<Node> {
         n.getRight().accept(this, aux.getRight());
     }
 
-    public void visit(BlockComment n, Node arg) {
-    }
+    public void visit(BlockComment n, Node arg) {}
 
     public void visit(BlockStmt n, Node arg) {
         BlockStmt aux = (BlockStmt) arg;
@@ -226,11 +225,9 @@ public class PMDRuleVisitor implements VoidVisitor<Node> {
         }
     }
 
-    public void visit(BooleanLiteralExpr n, Node arg) {
-    }
+    public void visit(BooleanLiteralExpr n, Node arg) {}
 
-    public void visit(BreakStmt n, Node arg) {
-    }
+    public void visit(BreakStmt n, Node arg) {}
 
     public void visit(CastExpr n, Node arg) {
         CastExpr aux = (CastExpr) arg;
@@ -245,8 +242,7 @@ public class PMDRuleVisitor implements VoidVisitor<Node> {
         n.getCatchBlock().accept(this, aux.getCatchBlock());
     }
 
-    public void visit(CharLiteralExpr n, Node arg) {
-    }
+    public void visit(CharLiteralExpr n, Node arg) {}
 
     public void visit(ClassExpr n, Node arg) {
         ClassExpr aux = (ClassExpr) arg;
@@ -408,8 +404,7 @@ public class PMDRuleVisitor implements VoidVisitor<Node> {
         n.getBlock().accept(this, aux.getBlock());
     }
 
-    public void visit(ContinueStmt n, Node arg) {
-    }
+    public void visit(ContinueStmt n, Node arg) {}
 
     public void visit(DoStmt n, Node arg) {
         DoStmt aux = (DoStmt) arg;
@@ -418,8 +413,7 @@ public class PMDRuleVisitor implements VoidVisitor<Node> {
         n.getCondition().accept(this, aux.getCondition());
     }
 
-    public void visit(DoubleLiteralExpr n, Node arg) {
-    }
+    public void visit(DoubleLiteralExpr n, Node arg) {}
 
     public void visit(EmptyMemberDeclaration n, Node arg) {
         EmptyMemberDeclaration aux = (EmptyMemberDeclaration) arg;
@@ -429,8 +423,7 @@ public class PMDRuleVisitor implements VoidVisitor<Node> {
         }
     }
 
-    public void visit(EmptyStmt n, Node arg) {
-    }
+    public void visit(EmptyStmt n, Node arg) {}
 
     public void visit(EmptyTypeDeclaration n, Node arg) {
         EmptyTypeDeclaration aux = (EmptyTypeDeclaration) arg;
@@ -655,14 +648,11 @@ public class PMDRuleVisitor implements VoidVisitor<Node> {
         n.getType().accept(this, aux.getType());
     }
 
-    public void visit(IntegerLiteralExpr n, Node arg) {
-    }
+    public void visit(IntegerLiteralExpr n, Node arg) {}
 
-    public void visit(IntegerLiteralMinValueExpr n, Node arg) {
-    }
+    public void visit(IntegerLiteralMinValueExpr n, Node arg) {}
 
-    public void visit(JavadocComment n, Node arg) {
-    }
+    public void visit(JavadocComment n, Node arg) {}
 
     public void visit(LabeledStmt n, Node arg) {
         LabeledStmt aux = (LabeledStmt) arg;
@@ -670,14 +660,11 @@ public class PMDRuleVisitor implements VoidVisitor<Node> {
         n.getStmt().accept(this, aux.getStmt());
     }
 
-    public void visit(LineComment n, Node arg) {
-    }
+    public void visit(LineComment n, Node arg) {}
 
-    public void visit(LongLiteralExpr n, Node arg) {
-    }
+    public void visit(LongLiteralExpr n, Node arg) {}
 
-    public void visit(LongLiteralMinValueExpr n, Node arg) {
-    }
+    public void visit(LongLiteralMinValueExpr n, Node arg) {}
 
     public void visit(MarkerAnnotationExpr n, Node arg) {
 
@@ -770,8 +757,7 @@ public class PMDRuleVisitor implements VoidVisitor<Node> {
         }
     }
 
-    public void visit(NameExpr n, Node arg) {
-    }
+    public void visit(NameExpr n, Node arg) {}
 
     public void visit(NormalAnnotationExpr n, Node arg) {
 
@@ -789,8 +775,7 @@ public class PMDRuleVisitor implements VoidVisitor<Node> {
         }
     }
 
-    public void visit(NullLiteralExpr n, Node arg) {
-    }
+    public void visit(NullLiteralExpr n, Node arg) {}
 
     public void visit(ObjectCreationExpr n, Node arg) {
 
@@ -936,8 +921,7 @@ public class PMDRuleVisitor implements VoidVisitor<Node> {
         n.getMemberValue().accept(this, aux.getMemberValue());
     }
 
-    public void visit(StringLiteralExpr n, Node arg) {
-    }
+    public void visit(StringLiteralExpr n, Node arg) {}
 
     public void visit(SuperExpr n, Node arg) {
 
@@ -1097,8 +1081,7 @@ public class PMDRuleVisitor implements VoidVisitor<Node> {
         }
     }
 
-    public void visit(VariableDeclaratorId n, Node arg) {
-    }
+    public void visit(VariableDeclaratorId n, Node arg) {}
 
     public void visit(VoidType n, Node arg) {
         VoidType aux = (VoidType) arg;

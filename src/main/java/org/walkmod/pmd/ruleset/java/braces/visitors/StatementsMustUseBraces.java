@@ -20,11 +20,11 @@ import org.walkmod.pmd.visitors.PMDRuleVisitor;
  */
 @Modification
 public class StatementsMustUseBraces extends PMDRuleVisitor {
+
     private final EnumSet<Flag> flags;
 
     enum Flag {
         For, If, IfElse, While
-
     }
 
     public StatementsMustUseBraces() {
