@@ -11,6 +11,7 @@ import org.walkmod.javalang.ast.SymbolReference;
 import org.walkmod.javalang.ast.body.MethodDeclaration;
 import org.walkmod.javalang.ast.body.ModifierSet;
 import org.walkmod.javalang.ast.body.Parameter;
+import org.walkmod.javalang.ast.expr.LambdaExpr;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
 import org.walkmod.pmd.common.FinalAnalyzer;
 import org.walkmod.pmd.visitors.Modification;
@@ -26,7 +27,10 @@ public class MethodArgumentCouldBeFinal extends PMDRuleVisitor {
         super.visit(n, context);
         Parameter aux = (Parameter) context;
 
-        if (!ModifierSet.isFinal(n.getModifiers()) && !isBodyLessMethod(n.getParentNode())) {
+        final boolean isLambdaParameter = n.getParentNode() instanceof LambdaExpr;
+        if (!ModifierSet.isFinal(n.getModifiers())
+                && ((!isLambdaParameter && !isBodyLessMethod(n.getParentNode()))
+                    || isFinalizableLambdaParameter(n))) {
 
             List<SymbolReference> usages = n.getUsages();
             boolean areFinal = true;
@@ -45,6 +49,15 @@ public class MethodArgumentCouldBeFinal extends PMDRuleVisitor {
                 aux.setModifiers(ModifierSet.addModifier(n.getModifiers(), Modifier.FINAL));
             }
         }
+    }
+
+    private boolean isFinalizableLambdaParameter(Parameter n) {
+        final Node parentNode = n.getParentNode();
+        if (parentNode instanceof LambdaExpr) {
+            LambdaExpr le = (LambdaExpr) parentNode;
+            return le.isParametersEnclosed() && n.getType() != null;
+        }
+        return false;
     }
 
     private boolean isBodyLessMethod(Node node) {
