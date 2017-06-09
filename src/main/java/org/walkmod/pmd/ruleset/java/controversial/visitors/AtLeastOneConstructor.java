@@ -45,6 +45,5 @@ public class AtLeastOneConstructor extends PMDRuleVisitor {
                 aux.setMembers(members);
             }
         }
-
     }
 }

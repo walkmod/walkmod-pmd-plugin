@@ -30,7 +30,6 @@ public class ConfusingTernary extends PMDRuleVisitor {
                         BinaryExpr bexpr = (BinaryExpr) newIfStmt.getCondition();
                         negate(bexpr);
 
-                       
                         Statement then = newIfStmt.getThenStmt();
 
                         newIfStmt.setThenStmt(n.getElseStmt());
@@ -47,7 +46,6 @@ public class ConfusingTernary extends PMDRuleVisitor {
                 }
             }
         }
-
     }
 
     private boolean isNegative(Expression n) {
@@ -82,7 +80,6 @@ public class ConfusingTernary extends PMDRuleVisitor {
                 negate(be.getLeft());
             }
         }
-
     }
 
     @Override

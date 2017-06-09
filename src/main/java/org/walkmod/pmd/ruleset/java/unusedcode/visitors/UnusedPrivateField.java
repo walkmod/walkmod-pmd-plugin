@@ -25,7 +25,6 @@ public class UnusedPrivateField extends PMDRuleVisitor {
         if (vars == null || vars.isEmpty()) {
 
             vde.remove();
-
         }
     }
 
@@ -40,7 +39,7 @@ public class UnusedPrivateField extends PMDRuleVisitor {
 
                 if (usages == null || usages.isEmpty()) {
                     VariableDeclarator aux = (VariableDeclarator) ctx;
-                    if(!"serialVersionUID".equals(aux.getId().getName())) {
+                    if (!"serialVersionUID".equals(aux.getId().getName())) {
                         aux.remove();
                     }
                 }

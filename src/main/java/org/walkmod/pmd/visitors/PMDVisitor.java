@@ -1,18 +1,19 @@
-/* 
-  Copyright (C) 2016 Raquel Pau.
- 
-  Walkmod is free software: you can redistribute it and/or modify
-  it under the terms of the GNU Lesser General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
- 
-  Walkmod is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU Lesser General Public License for more details.
- 
-  You should have received a copy of the GNU Lesser General Public License
-  along with Walkmod.  If not, see <http://www.gnu.org/licenses/>.*/
+/*
+ * Copyright (C) 2016 Raquel Pau.
+ *
+ * Walkmod is free software: you can redistribute it and/or modify it under the
+ * terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * Walkmod is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Walkmod. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.walkmod.pmd.visitors;
 
 import java.util.HashMap;
@@ -21,20 +22,20 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import net.sourceforge.pmd.Rule;
+import net.sourceforge.pmd.RuleSet;
+import net.sourceforge.pmd.RuleSetFactory;
+
 import org.walkmod.javalang.ast.CompilationUnit;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
 import org.walkmod.javalang.visitors.CloneVisitor;
 import org.walkmod.javalang.visitors.VoidVisitorAdapter;
 import org.walkmod.walkers.VisitorContext;
 
-import net.sourceforge.pmd.Rule;
-import net.sourceforge.pmd.RuleSet;
-import net.sourceforge.pmd.RuleSetFactory;
-
 @RequiresSemanticAnalysis(optional = true)
 public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
 
-    private String configurationfile ="java-basic, java-empty, java-imports, java-unnecessary, java-unusedcode";
+    private String configurationfile = "java-basic, java-empty, java-imports, java-unnecessary, java-unusedcode";
 
     private RuleSet rules = null;
 
@@ -48,36 +49,32 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
 
         RuleSetFactory factory = new RuleSetFactory();
         String[] parts = config.split(",");
-        for(String part: parts){
+        for (String part : parts) {
             RuleSet aux = factory.createRuleSet(part.trim());
-            if(rules == null){
+            if (rules == null) {
                 rules = aux;
-            }
-            else{
+            } else {
                 rules.addRuleSet(aux);
             }
         }
-
-
-
     }
-    
-    protected String getRuleSetParts(Rule rule){
+
+    protected String getRuleSetParts(Rule rule) {
         String url = rule.getExternalInfoUrl();
         String[] parts = url.split("#");
         int index = parts[0].lastIndexOf("/");
         String package_ = parts[0].substring(index + 1, parts[0].length() - ".html".length());
         String name = parts[1];
-        
-        return package_+":"+name;
+
+        return package_ + ":" + name;
     }
 
     @Override
     public void visit(CompilationUnit cu, VisitorContext ctx) {
-        if(rules == null){
+        if (rules == null) {
             try {
                 setConfigurationFile(configurationfile);
-            }catch(Exception e){
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
@@ -98,22 +95,21 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
                     Object o = null;
                     if (rule.getLanguage().getName().toLowerCase().equals("java")) {
                         try {
-                          
+
                             String[] parts = getRuleSetParts(rule).split(":");
-                          
-                            Class<?> c = Class.forName("org.walkmod.pmd.ruleset.java." + parts[0] + ".visitors." + parts[1],
-                                    true, ctx.getClassLoader());
+
+                            Class<?> c =
+                                    Class.forName("org.walkmod.pmd.ruleset.java." + parts[0] + ".visitors." + parts[1],
+                                            true, ctx.getClassLoader());
                             o = c.newInstance();
 
-                            if(c.isAnnotationPresent(Modification.class)){
+                            if (c.isAnnotationPresent(Modification.class)) {
                                 modificationVisitors.add((PMDRuleVisitor) o);
                                 modificationRules.add(rule);
-                            }
-                            else if(c.isAnnotationPresent(Removal.class)){
+                            } else if (c.isAnnotationPresent(Removal.class)) {
                                 removalVisitors.add((PMDRuleVisitor) o);
                                 removalRules.add(rule);
-                            }
-                            else if(c.isAnnotationPresent(Addition.class)){
+                            } else if (c.isAnnotationPresent(Addition.class)) {
                                 additionVisitors.add((PMDRuleVisitor) o);
                                 additionRules.add(rule);
                             }
@@ -121,7 +117,6 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
                         } catch (Exception e) {
                         }
                     }
-
                 }
                 visitors.addAll(removalVisitors);
                 fixingRules.addAll(removalRules);
@@ -134,8 +129,8 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
             Iterator<Rule> it = fixingRules.iterator();
             for (PMDRuleVisitor visitor : visitors) {
                 if (splitExecution) {
-                    boolean requiresSemanticAnalysis = visitor.getClass()
-                            .isAnnotationPresent(RequiresSemanticAnalysis.class);
+                    boolean requiresSemanticAnalysis =
+                            visitor.getClass().isAnnotationPresent(RequiresSemanticAnalysis.class);
                     CompilationUnit aux = null;
                     if (cu.withSymbols() || !requiresSemanticAnalysis) {
 
@@ -143,7 +138,6 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
 
                         visitor.visit(cu, aux);
                         ctx.addResultNode(aux);
-
                     }
                     if (it.hasNext()) {
                         Rule rule = it.next();
@@ -158,7 +152,6 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
                     visitor.visit(cu, null);
                 }
             }
-
         }
     }
 
@@ -181,5 +174,4 @@ public class PMDVisitor extends VoidVisitorAdapter<VisitorContext> {
     public void setSplitExecution(boolean splitExecution) {
         this.splitExecution = splitExecution;
     }
-
 }

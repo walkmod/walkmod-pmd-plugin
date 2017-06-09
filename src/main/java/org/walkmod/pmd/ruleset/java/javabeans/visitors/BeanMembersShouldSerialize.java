@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+
 import org.walkmod.javalang.ast.Node;
 import org.walkmod.javalang.ast.body.BodyDeclaration;
 import org.walkmod.javalang.ast.body.ClassOrInterfaceDeclaration;
@@ -52,15 +53,12 @@ public class BeanMembersShouldSerialize extends PMDRuleVisitor {
                             }
                         }
                     }
-                    if(!hasGetter || !hasSetter){
+                    if (!hasGetter || !hasSetter) {
                         modifiers = ModifierSet.addModifier(modifiers, ModifierSet.TRANSIENT);
                         aux.setModifiers(modifiers);
                     }
-
                 }
             }
         }
-
     }
-
 }
