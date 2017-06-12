@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
+
 import org.walkmod.javalang.ast.CompilationUnit;
 import org.walkmod.javalang.ast.body.MethodDeclaration;
 import org.walkmod.javalang.ast.expr.ObjectCreationExpr;
@@ -17,26 +18,25 @@ import org.walkmod.javalang.test.SemanticTest;
 
 public class AvoidDecimalLiteralsInBigDecimalConstructorTest extends SemanticTest {
 
-   @Test
-   public void test() throws Exception {
-      CompilationUnit cu = compile(FileUtils
-            .readFileToString(new File("src/test/resources/examples/avoidDecimalLiteralsInBigDecimalConstructor.txt")));
+    @Test
+    public void test() throws Exception {
+        CompilationUnit cu = compile(FileUtils.readFileToString(
+                new File("src/test/resources/examples/avoidDecimalLiteralsInBigDecimalConstructor.txt")));
 
-      AvoidDecimalLiteralsInBigDecimalConstructor visitor = new AvoidDecimalLiteralsInBigDecimalConstructor();
+        AvoidDecimalLiteralsInBigDecimalConstructor visitor = new AvoidDecimalLiteralsInBigDecimalConstructor();
 
-      visitor.visit(cu, cu);
+        visitor.visit(cu, cu);
 
-      MethodDeclaration md = (MethodDeclaration) cu.getTypes().get(0).getMembers().get(0);
+        MethodDeclaration md = (MethodDeclaration) cu.getTypes().get(0).getMembers().get(0);
 
-      List<Statement> stmts = md.getBody().getStmts();
-      Statement stmt = stmts.get(stmts.size() - 1);
-     
-      ExpressionStmt expr = (ExpressionStmt) stmt;
-      VariableDeclarationExpr assign = (VariableDeclarationExpr) expr.getExpression();
+        List<Statement> stmts = md.getBody().getStmts();
+        Statement stmt = stmts.get(stmts.size() - 1);
 
-      ObjectCreationExpr call = (ObjectCreationExpr) assign.getVars().get(0).getInit();
-      
-      Assert.assertTrue(call.getArgs().get(0) instanceof StringLiteralExpr);
-      
-   }
+        ExpressionStmt expr = (ExpressionStmt) stmt;
+        VariableDeclarationExpr assign = (VariableDeclarationExpr) expr.getExpression();
+
+        ObjectCreationExpr call = (ObjectCreationExpr) assign.getVars().get(0).getInit();
+
+        Assert.assertTrue(call.getArgs().get(0) instanceof StringLiteralExpr);
+    }
 }

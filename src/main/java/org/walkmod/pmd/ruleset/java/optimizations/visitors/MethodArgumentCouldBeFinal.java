@@ -12,12 +12,13 @@ import org.walkmod.javalang.ast.expr.AssignExpr;
 import org.walkmod.javalang.ast.expr.EnclosedExpr;
 import org.walkmod.javalang.ast.expr.UnaryExpr;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
-import org.walkmod.pmd.visitors.PMDRuleVisitor;
 import org.walkmod.pmd.visitors.Modification;
+import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
 @RequiresSemanticAnalysis
 @Modification
 public class MethodArgumentCouldBeFinal extends PMDRuleVisitor {
+
     @Override
     public void visit(Parameter n, Node context) {
 
@@ -43,9 +44,8 @@ public class MethodArgumentCouldBeFinal extends PMDRuleVisitor {
                 aux.setModifiers(ModifierSet.addModifier(n.getModifiers(), Modifier.FINAL));
             }
         }
-
     }
-    
+
     private boolean isAssigned(Node reference) {
         Node parent = reference.getParentNode();
 
@@ -60,8 +60,10 @@ public class MethodArgumentCouldBeFinal extends PMDRuleVisitor {
             UnaryExpr ue = (UnaryExpr) parent;
             UnaryExpr.Operator op = ue.getOperator();
 
-            if (op.equals(UnaryExpr.Operator.posIncrement) || op.equals(UnaryExpr.Operator.posDecrement)
-                    || op.equals(UnaryExpr.Operator.preDecrement) || op.equals(UnaryExpr.Operator.posDecrement)) {
+            if (op.equals(UnaryExpr.Operator.posIncrement)
+                    || op.equals(UnaryExpr.Operator.posDecrement)
+                    || op.equals(UnaryExpr.Operator.preDecrement)
+                    || op.equals(UnaryExpr.Operator.posDecrement)) {
                 return true;
             }
         }

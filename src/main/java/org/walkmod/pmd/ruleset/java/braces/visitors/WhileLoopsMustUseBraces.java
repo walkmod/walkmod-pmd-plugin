@@ -7,6 +7,7 @@ import org.walkmod.pmd.visitors.Modification;
  */
 @Modification
 public class WhileLoopsMustUseBraces extends StatementsMustUseBraces {
+
     public WhileLoopsMustUseBraces() {
         super(Flag.While);
     }

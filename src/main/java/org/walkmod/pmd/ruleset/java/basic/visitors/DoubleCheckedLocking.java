@@ -1,18 +1,19 @@
-/* 
-  Copyright (C) 2016 Raquel Pau.
- 
-  Walkmod is free software: you can redistribute it and/or modify
-  it under the terms of the GNU Lesser General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
- 
-  Walkmod is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU Lesser General Public License for more details.
- 
-  You should have received a copy of the GNU Lesser General Public License
-  along with Walkmod.  If not, see <http://www.gnu.org/licenses/>.*/
+/*
+ * Copyright (C) 2016 Raquel Pau.
+ *
+ * Walkmod is free software: you can redistribute it and/or modify it under the
+ * terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * Walkmod is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Walkmod. If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.walkmod.pmd.ruleset.java.basic.visitors;
 
 import java.util.LinkedList;
@@ -39,6 +40,7 @@ import org.walkmod.pmd.visitors.PMDRuleVisitor;
 public class DoubleCheckedLocking extends PMDRuleVisitor {
 
     private class CheckSameObjectField<T> extends VoidVisitorAdapter<T> {
+
         private String name = null;
 
         public void visit(QualifiedNameExpr n, T ctx) {
@@ -88,7 +90,8 @@ public class DoubleCheckedLocking extends PMDRuleVisitor {
                                         returnedExpr.accept(visitor1, ctx);
                                         String variableNameOfReturnExpression = visitor1.getName();
 
-                                        if (variableNameOfCheckingNull != null && variableNameOfReturnExpression != null
+                                        if (variableNameOfCheckingNull != null
+                                                && variableNameOfReturnExpression != null
                                                 && variableNameOfCheckingNull.equals(variableNameOfReturnExpression)) {
 
                                             Statement thenStmt = ifStmt.getThenStmt();
@@ -115,7 +118,6 @@ public class DoubleCheckedLocking extends PMDRuleVisitor {
                                                     synchStmt.setExpr(new ThisExpr());
                                                     blockStmts.clear();
                                                     blockStmts.add(synchStmt);
-
                                                 }
 
                                             } else {
@@ -137,7 +139,6 @@ public class DoubleCheckedLocking extends PMDRuleVisitor {
                                                 ifStmt.setThenStmt(blockStmt);
                                             }
                                         }
-
                                     }
                                 }
                             }
@@ -147,5 +148,4 @@ public class DoubleCheckedLocking extends PMDRuleVisitor {
             }
         }
     }
-
 }

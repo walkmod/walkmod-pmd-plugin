@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+
 import org.walkmod.javalang.ASTManager;
 import org.walkmod.javalang.actions.Action;
 import org.walkmod.javalang.ast.CompilationUnit;
@@ -51,7 +52,6 @@ public class ConfusingTernaryTest {
         litExpr = (BooleanLiteralExpr) cexpr.getElseExpr();
 
         Assert.assertEquals(false, litExpr.getValue());
-
     }
 
     @Test
@@ -125,30 +125,29 @@ public class ConfusingTernaryTest {
 
         Assert.assertEquals(true, litExpr.getValue());
     }
-    
+
     @Test
-    public void testBugWithZeroPosition() throws Exception{
+    public void testBugWithZeroPosition() throws Exception {
         CompilationUnit cu = ASTManager.parse(new File("src/test/resources/examples/bugOnTernary.txt"));
         ConfusingTernary visitor = new ConfusingTernary();
 
         CompilationUnit auxCu = (CompilationUnit) new CloneVisitor().visit(cu, null);
 
         visitor.visit(cu, auxCu);
-        
+
         ChangeLogVisitor cmp = new ChangeLogVisitor();
-        
+
         cmp.setGenerateActions(true);
         VisitorContext ctx = new VisitorContext();
         ctx.put(ChangeLogVisitor.NODE_TO_COMPARE_KEY, auxCu);
-        
+
         cmp.visit(cu, ctx);
         List<Action> actions = cmp.getActionsToApply();
-        
+
         Assert.assertNotNull(actions);
-        
+
         Assert.assertNotNull(actions.get(0));
-        
+
         Assert.assertNotEquals(0, actions.get(0).getBeginLine());
     }
-
 }

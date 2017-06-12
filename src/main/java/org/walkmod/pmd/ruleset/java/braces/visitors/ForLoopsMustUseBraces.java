@@ -7,6 +7,7 @@ import org.walkmod.pmd.visitors.Modification;
  */
 @Modification
 public class ForLoopsMustUseBraces extends StatementsMustUseBraces {
+
     public ForLoopsMustUseBraces() {
         super(Flag.For);
     }
