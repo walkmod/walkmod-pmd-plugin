@@ -23,11 +23,18 @@ public class SemanticFixtureTest extends SemanticTest {
     private static final Charset UTF8 = Charset.forName("UTF-8");
 
     protected void doTestFixture(String suite, final VoidVisitor<Node> visitor) throws Exception {
+        doTestFixture(suite, "", visitor);
+    }
+
+    /**
+     * @param nameSuffix    suffix to add to test file names for e.g. "8" for ".java8"
+     */
+    protected void doTestFixture(String suite, String nameSuffix, final VoidVisitor<Node> visitor) throws Exception {
         final ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(getClass().getClassLoader());
         final String fixtureDir = suite.toLowerCase().replace("fixturetest", "");
 
         boolean didWork = false;
-        final String locationPattern = "fixture/pmd/" + fixtureDir + "/in/*.java";
+        final String locationPattern = "fixture/pmd/" + fixtureDir + "/in/*" + nameSuffix + ".java";
         for (Resource r : resolver.getResources(locationPattern)) {
             final File inFile = r.getFile();
             final File outFile = new File(new File(inFile.getParentFile().getParentFile(), "out"), inFile.getName());
