@@ -1,17 +1,19 @@
 package org.walkmod.pmd.ruleset.java.optimizations.visitors;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Iterator;
 import java.util.List;
 
+import org.walkmod.javalang.ast.MethodSymbolData;
 import org.walkmod.javalang.ast.Node;
 import org.walkmod.javalang.ast.SymbolReference;
+import org.walkmod.javalang.ast.body.MethodDeclaration;
 import org.walkmod.javalang.ast.body.ModifierSet;
 import org.walkmod.javalang.ast.body.Parameter;
-import org.walkmod.javalang.ast.expr.AssignExpr;
-import org.walkmod.javalang.ast.expr.EnclosedExpr;
-import org.walkmod.javalang.ast.expr.UnaryExpr;
+import org.walkmod.javalang.ast.expr.LambdaExpr;
 import org.walkmod.javalang.compiler.symbols.RequiresSemanticAnalysis;
+import org.walkmod.pmd.common.FinalAnalyzer;
 import org.walkmod.pmd.visitors.Modification;
 import org.walkmod.pmd.visitors.PMDRuleVisitor;
 
@@ -25,7 +27,10 @@ public class MethodArgumentCouldBeFinal extends PMDRuleVisitor {
         super.visit(n, context);
         Parameter aux = (Parameter) context;
 
-        if (!ModifierSet.isFinal(n.getModifiers())) {
+        final boolean isLambdaParameter = n.getParentNode() instanceof LambdaExpr;
+        if (!ModifierSet.isFinal(n.getModifiers())
+                && ((!isLambdaParameter && !isBodyLessMethod(n.getParentNode()))
+                    || isFinalizableLambdaParameter(n))) {
 
             List<SymbolReference> usages = n.getUsages();
             boolean areFinal = true;
@@ -36,7 +41,7 @@ public class MethodArgumentCouldBeFinal extends PMDRuleVisitor {
 
                     SymbolReference sr = itUsages.next();
                     Node srNode = (Node) sr;
-                    areFinal = areFinal && !isAssigned(srNode);
+                    areFinal = areFinal && !FinalAnalyzer.isAssigned(srNode);
                 }
             }
 
@@ -46,28 +51,23 @@ public class MethodArgumentCouldBeFinal extends PMDRuleVisitor {
         }
     }
 
-    private boolean isAssigned(Node reference) {
-        Node parent = reference.getParentNode();
-
-        while (parent instanceof EnclosedExpr) {
-            parent = parent.getParentNode();
+    private boolean isFinalizableLambdaParameter(Parameter n) {
+        final Node parentNode = n.getParentNode();
+        if (parentNode instanceof LambdaExpr) {
+            LambdaExpr le = (LambdaExpr) parentNode;
+            return le.isParametersEnclosed() && n.getType() != null;
         }
-        if (parent instanceof AssignExpr) {
-            AssignExpr assign = (AssignExpr) parent;
-            return assign.getTarget() == reference;
-        }
-        if (parent instanceof UnaryExpr) {
-            UnaryExpr ue = (UnaryExpr) parent;
-            UnaryExpr.Operator op = ue.getOperator();
-
-            if (op.equals(UnaryExpr.Operator.posIncrement)
-                    || op.equals(UnaryExpr.Operator.posDecrement)
-                    || op.equals(UnaryExpr.Operator.preDecrement)
-                    || op.equals(UnaryExpr.Operator.posDecrement)) {
-                return true;
-            }
-        }
-
         return false;
+    }
+
+    private boolean isBodyLessMethod(Node node) {
+        if (node instanceof MethodDeclaration) {
+            final MethodSymbolData sd = ((MethodDeclaration) node).getSymbolData();
+            final Method method = sd != null ? sd.getMethod() : null;
+            final int modifiers = method != null ? method.getModifiers() : 0;
+            return Modifier.isAbstract(modifiers) || Modifier.isNative(modifiers);
+        } else {
+            return false;
+        }
     }
 }
